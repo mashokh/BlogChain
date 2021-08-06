@@ -7,10 +7,10 @@ import java.sql.SQLException;
 
 public class DataBase {
 
-    private static final String username = "";
-    private static final String password = "";
+    private static final String username = "root";
+    private static final String password = "neskvicha2";
     private static final String server = "localhost";
-    private static final String db = "blogs";
+    private static final String db = "db";
 
     private static Connection connection;
 

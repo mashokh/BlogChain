@@ -1,0 +1,16 @@
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:20:39:39 +0400] "GET / HTTP/1.1" 404 951 http-bio-8081-exec-2 35
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:20:39:39 +0400] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8081-exec-3 1
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:20:46:44 +0400] "GET / HTTP/1.1" 404 951 http-bio-8081-exec-2 55
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:20:46:44 +0400] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8081-exec-3 1
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:20:47:00 +0400] "GET / HTTP/1.1" 200 57 http-bio-8081-exec-4 1339
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:09:13 +0400] "GET /AdminHomePage HTTP/1.1" 405 1065 http-bio-8081-exec-2 41
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:09:26 +0400] "GET /AdminHome HTTP/1.1" 404 969 http-bio-8081-exec-3 2
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:09:31 +0400] "GET /AdminHomePage HTTP/1.1" 405 1065 http-bio-8081-exec-4 1
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:10:54 +0400] "GET /AdminHomePage HTTP/1.1" 500 1597 http-bio-8081-exec-1 81
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:15:31 +0400] "GET / HTTP/1.1" 200 57 http-bio-8081-exec-1 84
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:15:56 +0400] "GET / HTTP/1.1" 200 57 http-bio-8081-exec-5 8
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:16:07 +0400] "GET /AdminHomePage HTTP/1.1" 500 1597 http-bio-8081-exec-8 16
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:16:55 +0400] "GET /AdminHomePage HTTP/1.1" 200 206 http-bio-8081-exec-2 870
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:17:01 +0400] "GET /AdminHomePage HTTP/1.1" 200 206 http-bio-8081-exec-3 4
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:18:59 +0400] "GET /AdminHomePage HTTP/1.1" 200 209 http-bio-8081-exec-1 717
+0:0:0:0:0:0:0:1 - - [06/Aug/2021:21:19:03 +0400] "GET /addAdmin HTTP/1.1" 404 967 http-bio-8081-exec-3 2

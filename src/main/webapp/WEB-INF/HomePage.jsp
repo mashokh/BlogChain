@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 05.08.2021
@@ -6,6 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>--%>
+<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
+<%
+    String name = (String) session.getAttribute("name");
+    ArrayList<String> blogs = (ArrayList<String>) session.getAttribute("blogs");
+
+%>
 <html>
 <head>
     <style>
@@ -24,19 +31,32 @@
             text-decoration: slateblue;
             color: #1718ff;
             position: relative;
-            left : 600px;
-            top : 120px;
+            left : 900px;
+            top : 100px;
+        }
+        a{
+            position: absolute;
+            left : 100px;
+            top: 150px;
+            color: crimson;
         }
     </style>
 </head>
 
 <body>
-<h1>Name</h1>
+<h1><%=name%>></h1>
 <form action="/HomePage">
     <input type="button" value="add category"/>
 </form>
 <form action = "/HomePage">
     <input type = "button" value = "add blog"/>
 </form>
+<%
+    for(int i = 0; i < blogs.size(); i++){
+%>
+        <a href = /HomePage > <%=blogs.get(i)%> </a>
+<%
+	}
+%>
 </body>
 </html>

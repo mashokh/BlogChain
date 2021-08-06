@@ -12,10 +12,10 @@ public class CategoryData {
 
     public static boolean suggestCategory(String name){
         try {
-            PreparedStatement checkStatement = connection.prepareStatement("SELECT * FROM CATEGORIES WHERE name = \"" + name + "\"");
+            PreparedStatement checkStatement = connection.prepareStatement("SELECT * FROM categories WHERE name = \"" + name + "\"");
             ResultSet rs = checkStatement.executeQuery();
             if(rs.next()) return false;
-            PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO categories(name,is_approved) values(" + name + ", false)");
+            PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO categories(name,is_approved) values(\"" + name + "\", false)");
             insertStatement.executeQuery();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -27,8 +27,8 @@ public class CategoryData {
     public static ArrayList<CategoryDao> getApprovedCategories(){
         ArrayList<CategoryDao> categories = new ArrayList<>();
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM CATEGORIES WHERE is_approved is TRUE");
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement getStatement = connection.prepareStatement("SELECT * FROM categories WHERE is_approved is TRUE");
+            ResultSet rs = getStatement.executeQuery();
             generateCategoryList(rs, categories);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -39,13 +39,22 @@ public class CategoryData {
     public static ArrayList<CategoryDao> getUnapprovedCategories(){
         ArrayList<CategoryDao> categories = new ArrayList<>();
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM CATEGORIES WHERE is_approved is FALSE");
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement getStatement = connection.prepareStatement("SELECT * FROM categories WHERE is_approved is FALSE");
+            ResultSet rs = getStatement.executeQuery();
             generateCategoryList(rs, categories);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return categories;
+    }
+
+    public static void denyCategory(String name){
+        try {
+            PreparedStatement denyStatement = connection.prepareStatement("DELETE FROM categories WHERE name = \"" + name + "\"");
+            denyStatement.executeQuery();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     private static void generateCategoryList(ResultSet rs, ArrayList<CategoryDao> categories){

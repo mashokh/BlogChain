@@ -47,7 +47,7 @@ public class User {
         this.avatar = avatar;
     }
 
-    public boolean isIs_admin() {
+    public boolean IsAdmin() {
         return is_admin;
     }
 

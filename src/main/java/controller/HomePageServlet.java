@@ -1,5 +1,6 @@
 package controller;
 
+import com.mysql.cj.protocol.Resultset;
 import model.Blogs;
 import model.User;
 
@@ -10,30 +11,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet("/HomePage")
+@WebServlet("/UserHomePage/1")
 
 public class HomePageServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       HttpSession session = req.getSession();
-       System.out.println("shdjdh");
-//        session.getAttribute("user");
-        User user = new User(1, "masho", "m", "src/main/webapp/icons/black.svg", false);
+        String param = req.getPathInfo();
+        System.out.println(param);
+        HttpSession session = req.getSession();
+        //        User user = session.getAttribute("user");
+        User user = new User(1, "masho", "m", "icons/blue.svg", false);
         int userId = user.getId();
-        String name  = user.getName();
-        System.out.println(name);
-        session.setAttribute("name", name);
+        session.setAttribute("user", user);
         try {
-            ArrayList<String> blogs = Blogs.getBlogsByUserId(userId);
-            System.out.print(blogs);
+            ResultSet blogs = Blogs.getBlogsByUserId(userId);
             session.setAttribute("blogs", blogs);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        req.getRequestDispatcher("/WEB-INF/HomePage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/UserHomePage.jsp").forward(req, resp);
     }
 
     @Override

@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.example</groupId>
-  <artifactId>BlogChain</artifactId>
+  <groupId>ge.edu.freeuni</groupId>
+  <artifactId>student-webapp</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>student-webapp Maven Webapp</name>
+  <name>BlogChain Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
-  <url>http://www.blogs.com</url>
+  <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,10 +42,16 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.25</version>
     </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
   <build>
-    <finalName>blogs-webapp</finalName>
+    <finalName>BlogChain Maven Webapp</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>

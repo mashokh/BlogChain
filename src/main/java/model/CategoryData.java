@@ -48,10 +48,19 @@ public class CategoryData {
         return categories;
     }
 
-    public static void denyCategory(String name){
+    public static void deleteCategory(String name){
         try {
             PreparedStatement denyStatement = connection.prepareStatement("DELETE FROM categories WHERE name = \"" + name + "\"");
             denyStatement.executeQuery();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void approveCategory(String name){
+        try {
+            PreparedStatement approval = connection.prepareStatement("UPDATE categories SET is_approved = true WHERE name = \"" + name + "\"");
+            approval.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

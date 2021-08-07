@@ -11,9 +11,9 @@
     <title>Admin Home Page</title>
 </head>
 <body>
-    <a href="previewSuggestions"> achu </a>
-    <a href="addCategory"> asa </a>
-    <a href="addAdmin"> asa </a>
+    <a href="/PreviewSuggestions"> Preview Suggested Categories </a>
+    <a href="/AddCategory"> Add Category Manually </a>
+    <a href="/AddAdmin"> Add Admin </a>
 
 </body>
 </html>

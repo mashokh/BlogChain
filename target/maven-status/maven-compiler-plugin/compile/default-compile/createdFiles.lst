@@ -1,5 +1,8 @@
-model\DataBase.class
 controller\AdminController\AdminHomeServlet.class
+main.class
 model\CategoryData.class
 model\CategoryDao.class
+model\DataBase.class
+controller\AdminController\ApproveCategoryServlet.class
+controller\AdminController\PreviewSuggestionsServlet.class
 Listener\ContextCreationListener.class

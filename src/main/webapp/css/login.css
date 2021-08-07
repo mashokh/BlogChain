@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html, body {
+    height: 100%;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to right, #42275a 0%, #734b6d 100%);
+    font-size: 10px;
+}
+
+body {
+    display: grid;
+    place-items: center;
+}
+
+#login-container {
+    display: grid;
+    min-width: 550px;
+    max-width: 600px;
+    height: 425px;
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#login-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 3.7rem;
+    color: #4e45aa;
+    padding-top: 20px;
+}
+
+#login-error {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.7rem;
+    color: #e0b219;
+    padding-top: 15px;
+}
+
+#login-container #nickname-container .controls {
+    padding: 50px 0 21px 0;
+    text-align: center;
+}
+
+#login-container #password-container .controls {
+    padding: 15px 0 48px 0;
+    text-align: center;
+}
+
+#login-container #nickname-container .nickname-input {
+    outline: none;
+    padding: 8px 8px 8px 8px;
+    border: 2px solid #ddd;
+    color: #330;
+    border-radius: 6px;
+    font-size: 2.1rem;
+}
+
+#login-container #password-container .password-input {
+    outline: none;
+    padding: 8px;
+    border: 2px solid #ddd;
+    color: #330;
+    border-radius: 6px;
+    font-size: 2.1rem;
+}
+
+#login-submit-container {
+    text-align: center;
+}
+
+.login-submit-btn {
+    background-color: #3e2fbb;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 30%;
+}

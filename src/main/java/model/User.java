@@ -1,34 +1,26 @@
 package model;
 
 public class User {
+
     private int id;
-    private String name;
+    private String username;
     private String password;
     private String avatar;
-    private boolean is_admin;
+    private Boolean isAdmin;
 
-    public User(int id, String name, String password, String avatar, boolean is_admin){
-        this.id = id;
-        this.name = name;
+    public User(String username, String password, String avatar, Boolean isAdmin) {
+        this.username = username;
         this.password = password;
         this.avatar = avatar;
-        this.is_admin = is_admin;
+        this.isAdmin = isAdmin;
     }
 
-    public int getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -47,11 +39,11 @@ public class User {
         this.avatar = avatar;
     }
 
-    public boolean IsAdmin() {
-        return is_admin;
+    public Boolean getAdmin() {
+        return isAdmin;
     }
 
-    public void setIs_admin(boolean is_admin) {
-        this.is_admin = is_admin;
+    private void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 }

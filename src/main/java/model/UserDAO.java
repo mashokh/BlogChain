@@ -50,7 +50,7 @@ public class UserDAO {
 
     public static boolean usernameExists(String username) throws SQLException {
         Connection connection = DataBase.getConnection();
-        String query = "SELECT COUNT(*) AS count FROM users WHERE username = ?";
+        String query = "SELECT COUNT(*) AS count FROM users WHERE username = ?;";
 
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, username);
@@ -59,6 +59,19 @@ public class UserDAO {
         if (!rs.next()) return false;
 
         return rs.getInt("count") > 0;
+    }
+
+    public static int getIdByUsername(String username) throws SQLException {
+        Connection connection = DataBase.getConnection();
+        String query = "SELECT id FROM users WHERE username = ?;";
+
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, username);
+
+        ResultSet rs = statement.executeQuery();
+        if (!rs.next()) return 0;
+
+        return rs.getInt("id");
     }
 
 }

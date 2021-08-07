@@ -1,8 +1,8 @@
 package controller;
 
-import com.mysql.cj.protocol.Resultset;
-import model.Blogs;
+import model.BlogsDao;
 import model.User;
+import model.UserDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,23 +13,25 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-@WebServlet("/UserHomePage/1")
+@WebServlet(name = "UserHomePage", urlPatterns = { "/UserHomePage/*"})
 
 public class HomePageServlet extends HttpServlet{
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String param = req.getPathInfo();
-        System.out.println(param);
+        int userId = Integer.parseInt(req.getParameter("userId"));
+        System.out.println(userId);
         HttpSession session = req.getSession();
-        //        User user = session.getAttribute("user");
-        User user = new User(1, "masho", "m", "icons/blue.svg", false);
-        int userId = user.getId();
-        session.setAttribute("user", user);
+//        int loggedInUserId = (int) req.getAttribute("user_id");
+        int loggedInUserId = 1;
         try {
-            ResultSet blogs = Blogs.getBlogsByUserId(userId);
+            User user = UserDAO.getUserById(userId);
+            ResultSet blogs = BlogsDao.getBlogsByUserId(userId);
             session.setAttribute("blogs", blogs);
+            session.setAttribute("loggedInUserId", loggedInUserId);
+            session.setAttribute("homePageUserId", userId);
+            session.setAttribute("user", user);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

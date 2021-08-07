@@ -14,6 +14,8 @@
 <%
     ResultSet blogs = (ResultSet) session.getAttribute("blogs");
     User user = (User) session.getAttribute("user");
+    int loggedInUserId = (Integer) (session.getAttribute("loggedInUserId"));
+    int homePageUserId = (Integer) (session.getAttribute("homePageUserId"));
 %>
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,14 +67,17 @@
     </head>
     <body>
         <div class="NavigationBar" id="MyNavigationBar">
-            <h1 style="font-size: 40px"><%=user.getName()%></h1>
+            <h1 style="font-size: 40px"><%=user.getUsername()%></h1>
             <img src="<%=user.getAvatar()%>" id="Avatar"/>
             <div class="Buttons">
-                <a class="Buttons" href="/UserHomePage"> Add a Category </a>
-                <a class="Buttons" href="/AddBlog"> Add a blog</a>
-                <%if(user.IsAdmin() == true){%>
-                <a class="Buttons" href="/UserHomePage">Admin's HomePage</a>
-                <%}%>
+                <% if(loggedInUserId == homePageUserId){%>
+                <a class="Buttons" href="/"> Add a Category </a>
+                <a class="Buttons" href="/"> Add a blog</a>
+                <%if(user.getAdmin() == true){%>
+                <a class="Buttons" href="/">Admin's HomePage</a>
+                <%}
+                    }%>
+
             </div>
         </div>
         <div class="Blogs" id="UsersBlogs">
@@ -81,8 +86,11 @@
                 while(blogs.next()){
             %>
             <p class="DatesAndBlogs">
-                <a class="Blogs" href = /UserHomePage> <%=blogs.getString("title")%> <br> </a>
-            <p>
+                <a class="Blogs" href = /> <%=blogs.getString("title")%> <br> </a>
+            </p>
+                <%=blogs.getString("created_at")%> <br><br>
+            </p>
+            </p>
                 <%
                     String result = "";
                     String str = blogs.getString("text");
@@ -101,9 +109,6 @@
                     }
                 %>
                 <%=result%>
-            </p>
-                <%=blogs.getString("created_at")%> <br><br>
-            </p>
             <%
                 }
             %>

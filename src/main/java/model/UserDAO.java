@@ -9,7 +9,7 @@ public class UserDAO {
 
     public UserDAO() {}
 
-    public User getUserById(int id) throws SQLException {
+    public static User getUserById(int id) throws SQLException {
         Connection connection = DataBase.getConnection();
         PreparedStatement statement = connection.prepareStatement("select * from users where id = ?;");
         statement.setInt(1, id);

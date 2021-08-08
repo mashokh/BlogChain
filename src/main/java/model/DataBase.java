@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 public class DataBase {
 
-    private static final String username = "";
-    private static final String password = "";
+    private static final String username = "root";
+    private static final String password = "Samkaro12!";
     private static final String server = "localhost";
     private static final String db = "blogs";
 

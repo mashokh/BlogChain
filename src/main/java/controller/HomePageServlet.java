@@ -1,9 +1,6 @@
 package controller;
 
-import model.Blogs;
-import model.BlogsDao;
-import model.User;
-import model.UserDAO;
+import model.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,10 +32,13 @@ public class HomePageServlet extends HttpServlet{
         try {
             User user = UserDAO.getUserById(userId);
             ArrayList<Blogs> blogs = BlogsDao.getBlogsByUserId(userId);
+            ArrayList<Category> categories = CategoryDao.getCategories(true);
             session.setAttribute("blogs", blogs);
             session.setAttribute("loggedInUserId", loggedInUserId);
             session.setAttribute("homePageUserId", userId);
             session.setAttribute("user", user);
+            session.setAttribute("categories", categories);
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -47,14 +47,14 @@ public class HomePageServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
         String title = req.getParameter("blogTitle");
-//        String category = req.getParameter("categories");
+        String category = req.getParameter("chosen_category");
         String text = req.getParameter("blogText");
         if(text != null) {
             LocalDate date = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             int categoryId = 1;
+
             String formatedDate = date.format(formatter);
             int created_by = (int) req.getSession().getAttribute("user_id");
             try {
@@ -63,7 +63,9 @@ public class HomePageServlet extends HttpServlet{
                 throwables.printStackTrace();
             }
         } else{
-
+            String suggestedCategory = req.getParameter("category");
+            CategoryDao.suggestCategory(suggestedCategory);
         }
+        doGet(req, resp);
     }
 }

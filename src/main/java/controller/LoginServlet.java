@@ -15,10 +15,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user_id") == null)
-            request.getRequestDispatcher("views/login.jsp").forward(request, response);
-        else
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("views/login.jsp").forward(request, response);
     }
 
     @Override
@@ -27,8 +24,8 @@ public class LoginServlet extends HttpServlet {
         String password = String.valueOf(request.getParameter("password").hashCode());
         try {
             if (UserDAO.successLogin(username, password)) {
-                request.getSession().setAttribute("user_id", UserDAO.getIdByUsername(username));
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                // todo save is session
+                // todo render feed
             } else {
                 request.setAttribute("error", "Username or password is incorrect");
                 request.getRequestDispatcher("views/login.jsp").forward(request, response);

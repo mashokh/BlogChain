@@ -15,10 +15,7 @@ import java.sql.SQLException;
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user_id") == null)
-            request.getRequestDispatcher("views/register.jsp").forward(request, response);
-        else
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("views/register.jsp").forward(request, response);
     }
 
     @Override
@@ -35,8 +32,8 @@ public class RegisterServlet extends HttpServlet {
                     request.getRequestDispatcher("views/register.jsp").forward(request, response);
                 } else {
                     UserDAO.addUser(newUser);
-                    request.getSession().setAttribute("user_id", UserDAO.getIdByUsername(newUser.getUsername()));
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    // todo save is session
+                    // todo render feed
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

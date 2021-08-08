@@ -1,5 +1,6 @@
 package controller;
 
+import model.Blogs;
 import model.BlogsDao;
 import model.User;
 import model.UserDAO;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebServlet(name = "UserHomePage", urlPatterns = { "/UserHomePage/*"})
 
@@ -23,8 +25,10 @@ public class HomePageServlet extends HttpServlet{
         int userId = Integer.parseInt(req.getParameter("userId"));
         System.out.println(userId);
         HttpSession session = req.getSession();
-//        int loggedInUserId = (int) req.getAttribute("user_id");
-        int loggedInUserId = 1;
+        int loggedInUserId = -1;
+        if(session.getAttribute(("user_id")) != null){
+            loggedInUserId = (Integer) session.getAttribute("user_id");
+        }
         try {
             User user = UserDAO.getUserById(userId);
             ResultSet blogs = BlogsDao.getBlogsByUserId(userId);
@@ -35,11 +39,15 @@ public class HomePageServlet extends HttpServlet{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        req.getRequestDispatcher("/WEB-INF/UserHomePage.jsp").forward(req, resp);
+        req.getRequestDispatcher("/views/UserHomePage.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        doGet(req, resp);
+        String title = req.getParameter("blogTitle");
+        String category = req.getParameter("categories");
+        String text = req.getParameter("blogText");
+        System.out.println(title);
     }
 }

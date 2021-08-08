@@ -66,6 +66,6 @@ public class HomePageServlet extends HttpServlet{
             String suggestedCategory = req.getParameter("category");
             CategoryDao.suggestCategory(suggestedCategory);
         }
-        doGet(req, resp);
+        resp.sendRedirect(String.valueOf(req.getRequestURL()) + "?" + req.getQueryString());
     }
 }

@@ -1,25 +1,20 @@
 package model;
 
-import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CategoryDao {
-    private static Connection connection;
-
-    public CategoryDao(){
-        this.connection = DataBase.getConnection();
-    }
 
     public static boolean suggestCategory(String name){
         try {
-            PreparedStatement checkStatement = connection.prepareStatement("SELECT * FROM categories WHERE name = \"" + name + "\"");
+            PreparedStatement checkStatement = DataBase.getConnection().prepareStatement("SELECT * FROM categories WHERE name = \"" + name + "\"");
             ResultSet rs = checkStatement.executeQuery();
             if(rs.next()) return false;
-            PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO categories(name,is_approved) values(\"" + name + "\", false)");
-            insertStatement.executeQuery();
+            PreparedStatement insertStatement = DataBase.getConnection().prepareStatement("INSERT INTO categories(name,is_approved) values(\"" + name + "\", false)");
+            insertStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;
@@ -30,7 +25,7 @@ public class CategoryDao {
     public static ArrayList<Category> getCategories(boolean status){
         ArrayList<Category> categories = new ArrayList<>();
         try {
-            PreparedStatement getStatement = connection.prepareStatement("SELECT * FROM categories WHERE is_approved is \"" + status + "\"");
+            PreparedStatement getStatement = DataBase.getConnection().prepareStatement("SELECT * FROM categories WHERE is_approved is " + status);
             ResultSet rs = getStatement.executeQuery();
             generateCategoryList(rs, categories);
         } catch (SQLException throwables) {
@@ -42,8 +37,8 @@ public class CategoryDao {
 
     public static void changeCategoryStatus(String name, boolean status){
         try {
-            PreparedStatement approval = connection.prepareStatement("UPDATE categories SET is_approved = \"" + status + "\" WHERE name = \"" + name + "\"");
-            approval.executeUpdate();
+            PreparedStatement changeStatement = DataBase.getConnection().prepareStatement("UPDATE categories SET is_approved = \"" + status + "\" WHERE name = \"" + name + "\"");
+            changeStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -51,7 +46,7 @@ public class CategoryDao {
 
     public static void deleteCategory(String name){
         try {
-            PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM categories WHERE name = \"" + name + "\"");
+            PreparedStatement deleteStatement = DataBase.getConnection().prepareStatement("DELETE FROM categories WHERE name = \"" + name + "\"");
             deleteStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -17,7 +17,7 @@ body {
     display: grid;
     min-width: 550px;
     max-width: 600px;
-    height: 445px;
+    height: 425px;
     background: white;
     border-radius: 10px;
     padding: 10px;
@@ -36,15 +36,6 @@ body {
     font-size: 1.7rem;
     color: #e0b219;
     padding-top: 5px;
-}
-
-#to-login-btn-container {
-    text-align: center;
-    font-size: 1.1rem;
-}
-
-.to-login-btn {
-    color: #3e2fbb;
 }
 
 #register-container #nickname-container .controls {

@@ -2,6 +2,7 @@ controller\AdminController\AdminHomeServlet.class
 main.class
 model\CategoryData.class
 model\CategoryDao.class
+controller\AdminController\DenyCategoryServlet.class
 model\DataBase.class
 controller\AdminController\ApproveCategoryServlet.class
 controller\AdminController\PreviewSuggestionsServlet.class

@@ -51,7 +51,7 @@ public class CategoryData {
     public static void deleteCategory(String name){
         try {
             PreparedStatement denyStatement = connection.prepareStatement("DELETE FROM categories WHERE name = \"" + name + "\"");
-            denyStatement.executeQuery();
+            denyStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

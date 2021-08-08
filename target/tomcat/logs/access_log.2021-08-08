@@ -1,0 +1,13 @@
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:32:08 +0400] "GET /AdminHomePage HTTP/1.1" 200 260 http-bio-8081-exec-1 217
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:32:09 +0400] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8081-exec-3 1
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:32:14 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 730 http-bio-8081-exec-4 4717
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:32:19 +0400] "POST /DenyCategory HTTP/1.1" 302 - http-bio-8081-exec-5 19
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:32:19 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 730 http-bio-8081-exec-6 3
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:32:23 +0400] "POST /DenyCategory HTTP/1.1" 302 - http-bio-8081-exec-7 14
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:32:23 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 730 http-bio-8081-exec-8 2
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:32:25 +0400] "POST /ApproveCategory HTTP/1.1" 302 - http-bio-8081-exec-9 763
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:32:25 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 332 http-bio-8081-exec-10 1
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:58:44 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 733 http-bio-8081-exec-1 186
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:58:47 +0400] "POST /DenyCategory HTTP/1.1" 302 - http-bio-8081-exec-3 157
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:58:47 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 332 http-bio-8081-exec-4 2
+0:0:0:0:0:0:0:1 - - [08/Aug/2021:12:59:05 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 733 http-bio-8081-exec-5 5

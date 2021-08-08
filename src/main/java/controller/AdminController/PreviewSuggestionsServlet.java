@@ -16,14 +16,17 @@ import java.util.ArrayList;
 @WebServlet(urlPatterns = "/PreviewSuggestions")
 public class PreviewSuggestionsServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
+            throws ServletException, IOException {
         ArrayList<CategoryDao> suggestedCategories = CategoryData.getUnapprovedCategories();
         httpServletRequest.setAttribute("categories", suggestedCategories);
-        httpServletRequest.getRequestDispatcher("WEB-INF/suggestionsPage.jsp").forward(httpServletRequest, httpServletResponse);
+        httpServletRequest.getRequestDispatcher("WEB-INF/suggestionsPage.jsp").
+                forward(httpServletRequest, httpServletResponse);
     }
 
     @Override
-    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        super.doPost(httpServletRequest, httpServletResponse);
+    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
+            throws ServletException, IOException {
+
     }
 }

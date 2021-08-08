@@ -158,3 +158,7 @@
 0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:16:32 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 1138 http-bio-8081-exec-2 92
 0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:16:33 +0400] "POST /ApproveCategory HTTP/1.1" 302 - http-bio-8081-exec-3 184
 0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:16:33 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 732 http-bio-8081-exec-4 2
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:32:37 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 732 http-bio-8081-exec-1 132
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:32:38 +0400] "POST /ApproveCategory HTTP/1.1" 302 - http-bio-8081-exec-3 122
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:32:38 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 332 http-bio-8081-exec-4 1
+0:0:0:0:0:0:0:1 - - [07/Aug/2021:21:33:18 +0400] "GET /PreviewSuggestions HTTP/1.1" 200 732 http-bio-8081-exec-5 3

@@ -27,11 +27,11 @@
     %>
     <tr><td><%=name%></td>
         <td><form action="/ApproveCategory" method="post">
-            <button type="submit" name = "approvalButton" value=<%=name%>>Approve</button>
+            <button type="submit" name = "categoryName" value=<%=name%>>Approve</button>
             </form>
         </td>
         <td><form action="/DenyCategory" method="post">
-            <button type="submit" name = "denialButton" value=<%=name%>>Deny</button>
+            <button type="submit" name = "categoryName" value=<%=name%>>Deny</button>
         </form>
         </td>
     </tr>

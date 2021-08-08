@@ -53,6 +53,9 @@
         <div id="register-submit-container">
             <button class="register-submit-btn" type="submit">Register</button>
         </div>
+        <div id="to-login-btn-container">
+            <a class="to-login-btn" href="/login" >Login</a>
+        </div>
 
     </form>
 </div>

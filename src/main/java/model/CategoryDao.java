@@ -49,6 +49,15 @@ public class CategoryDao {
         }
     }
 
+    public static void deleteCategory(String name){
+        try {
+            PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM categories WHERE name = \"" + name + "\"");
+            deleteStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     private static void generateCategoryList(ResultSet rs, ArrayList<Category> categories){
         try {
             while (rs.next()){

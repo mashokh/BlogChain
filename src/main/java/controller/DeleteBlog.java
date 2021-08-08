@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/AddBlog")
+@WebServlet(name = "DeleteBlog", urlPatterns = { "/DeleteBlog/*"})
 
-public class AddBlogServlet extends HttpServlet {
+public class DeleteBlog extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userId = (String) req.getSession().getAttribute("user_id");
+        String blogTitle = req.getParameter("blogTitle");
         req.getRequestDispatcher("view/login.jsp").forward(req, resp);
     }
 

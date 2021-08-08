@@ -2,6 +2,7 @@ package model;
 
 import com.mysql.cj.protocol.Resultset;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -48,6 +49,13 @@ public class BlogsDao {
         statement.setInt(3, created_by);
         statement.setString(4, created_at);
         statement.setInt(5, category_id);
+        statement.executeUpdate();
+    }
+
+    public static void deleteBlog(String title) throws SQLException {
+        Connection connection = DataBase.getConnection();
+        PreparedStatement statement = connection.prepareStatement("delete from blogs.blogs where title = ?");
+        statement.setString(1, title);
         statement.executeUpdate();
     }
 }

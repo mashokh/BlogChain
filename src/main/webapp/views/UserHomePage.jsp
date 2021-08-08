@@ -47,7 +47,7 @@
             <p class="DatesAndBlogs">
                 <a class="Blogs" href = /> <%=blogs.get(i).getTitle()%> </a>
                 <%if(loggedInUserId == homePageUserId){%>
-                    <a class="Buttons" href="/UserHomePage"> delete</a>
+                    <a class="Buttons" href="/DeleteBlog?blogTitle=" + <%=blogs.get(i).getTitle()%>> delete</a>
                 <%}%>
             </p>
                 <%=blogs.get(i).getCreated_at()%>

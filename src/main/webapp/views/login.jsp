@@ -26,9 +26,6 @@
         <div id="login-submit-container">
             <button class="login-submit-btn" type="submit">Login</button>
         </div>
-        <div id="to-register-btn-container">
-            <a class="to-register-btn" href="/register" >Register</a>
-        </div>
     </form>
 
 </div>

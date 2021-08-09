@@ -10,16 +10,14 @@ public class CategoryDao {
 
     public static boolean suggestCategory(String name){
         try {
-            PreparedStatement checkStatement = DataBase.getConnection().prepareStatement("SELECT * FROM categories WHERE name = \"" + name + "\"");
-            ResultSet rs = checkStatement.executeQuery();
-            if(rs.next()) return false;
-            PreparedStatement insertStatement = DataBase.getConnection().prepareStatement("INSERT INTO categories(name,is_approved) values(\"" + name + "\", false)");
+            PreparedStatement insertStatement = DataBase.getConnection().
+                    prepareStatement("INSERT INTO categories(name,is_approved) values(\"" + name + "\", false)");
             insertStatement.execute();
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
-        return true;
+        return false;
     }
 
     public static ArrayList<Category> getCategories(boolean status){
@@ -37,7 +35,8 @@ public class CategoryDao {
 
     public static void changeCategoryStatus(String name, boolean status){
         try {
-            PreparedStatement changeStatement = DataBase.getConnection().prepareStatement("UPDATE categories SET is_approved = \"" + status + "\" WHERE name = \"" + name + "\"");
+            PreparedStatement changeStatement = DataBase.getConnection().
+                    prepareStatement("UPDATE categories SET is_approved = " + status +  " WHERE name = \"" + name + "\"");
             changeStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -46,12 +45,40 @@ public class CategoryDao {
 
     public static void deleteCategory(String name){
         try {
-            PreparedStatement deleteStatement = DataBase.getConnection().prepareStatement("DELETE FROM categories WHERE name = \"" + name + "\"");
+            PreparedStatement deleteStatement = DataBase.getConnection().
+                    prepareStatement("DELETE FROM categories WHERE name = \"" + name + "\"");
             deleteStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
+
+    public static int getCategoryIdByName(String name){
+        int id = -1;
+        try {
+            PreparedStatement getIdStatement = DataBase.getConnection().
+                    prepareStatement("SELECT id FROM categories WHERE name = \"" + name + "\"");
+            ResultSet rs = getIdStatement.executeQuery();
+            rs.next();
+            id = rs.getInt("id");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return id;
+    }
+
+    public static boolean categoryExists(String name){
+        try {
+            PreparedStatement checkStatement = DataBase.getConnection().
+                    prepareStatement("SELECT * FROM categories WHERE name = \"" + name + "\"");
+            ResultSet rs = checkStatement.executeQuery();
+            if (rs.next()) return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
 
     private static void generateCategoryList(ResultSet rs, ArrayList<Category> categories){
         try {
@@ -68,4 +95,3 @@ public class CategoryDao {
     }
 
 }
-

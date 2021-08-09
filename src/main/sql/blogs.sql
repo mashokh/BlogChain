@@ -8,7 +8,7 @@ CREATE TABLE blogs (
                             created_by INT,
                             category_id INT ,
                             CONSTRAINT FK_created_by FOREIGN KEY (created_by)
-                            REFERENCES user(id),
+                            REFERENCES users(id),
                             CONSTRAINT  FK_category_id FOREIGN KEY (category_id)
                             REFERENCES categories(id)
                         );

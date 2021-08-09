@@ -18,7 +18,7 @@ public class LoginServlet extends HttpServlet {
         if (request.getSession().getAttribute("user_id") == null)
             request.getRequestDispatcher("views/login.jsp").forward(request, response);
         else
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("/");
     }
 
     @Override
@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
         try {
             if (UserDAO.successLogin(username, password)) {
                 request.getSession().setAttribute("user_id", UserDAO.getIdByUsername(username));
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("/");
             } else {
                 request.setAttribute("error", "Username or password is incorrect");
                 request.getRequestDispatcher("views/login.jsp").forward(request, response);

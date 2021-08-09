@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Array;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 
 @WebServlet(name = "UserHomePage", urlPatterns = { "/UserHomePage/*"})
 
-public class HomePageServlet extends HttpServlet{
+public class UserHomePageServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,7 +51,7 @@ public class HomePageServlet extends HttpServlet{
         if(text != null) {
             LocalDate date = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            int categoryId = 1;
+            int categoryId = CategoryDao.getCategoryIdByName(category);
 
             String formatedDate = date.format(formatter);
             int created_by = (int) req.getSession().getAttribute("user_id");

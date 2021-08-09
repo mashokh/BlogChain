@@ -58,4 +58,14 @@ public class BlogsDao {
         statement.setString(1, title);
         statement.executeUpdate();
     }
+
+    public static int getIdByTitle(String title) throws SQLException{
+        Connection connection = DataBase.getConnection();
+        PreparedStatement statement = connection.prepareStatement("select * from blogs.blogs where title = ?");
+        statement.setString(1, title);
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        int id = resultSet.getInt("id");
+        return id;
+    }
 }

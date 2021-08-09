@@ -14,10 +14,8 @@ public class CommentsDao {
         statement.setInt(1, blogId);
 
         ResultSet rs = statement.executeQuery();
-        if(!rs.next())
-            return null;
         while(rs.next()) {
-            res.add(new Comments(rs.getString(0), rs.getString(1), rs.getString(2), rs.getString(3)));
+            res.add(new Comments(Integer.parseInt(rs.getString(2)), Integer.parseInt(rs.getString(3)), rs.getString(4), rs.getString(5)));
         }
         return res;
     }
@@ -32,18 +30,19 @@ public class CommentsDao {
         if(!rs.next())
             return null;
         while(rs.next()) {
-            res.add(new Comments(rs.getString(0), rs.getString(1), rs.getString(2), rs.getString(3)));
+            res.add(new Comments(Integer.parseInt(rs.getString(2)), Integer.parseInt(rs.getString(3)),
+                    rs.getString(4), rs.getString(5)));
         }
         return res;
     }
 
-    public static void insertComment(int userId, int blogId, String date, String text) throws SQLException {
+    public static void insertComment(Comments comment) throws SQLException {
         Connection conn = DataBase.getConnection();
         PreparedStatement statement = conn.prepareStatement("INSERT INTO comments (blog_id, user_id, text, created_at) VALUES(?, ?, ?, ?);");
-        statement.setInt(1, blogId);
-        statement.setInt(2, userId);
-        statement.setString(3, text);
-        statement.setString(4, date);
+        statement.setInt(1, comment.getBlog_id());
+        statement.setInt(2, comment.getUser_id());
+        statement.setString(3, comment.getText());
+        statement.setString(4, comment.getCreated_at());
         statement.execute();
     }
 }

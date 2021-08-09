@@ -26,7 +26,7 @@
     <body>
         <div class="NavigationBar" id="MyNavigationBar">
             <h1 style="font-size: 40px"><%=user.getUsername()%></h1>
-            <img src="<%="icons/" + user.getAvatar() + ".svg"%>" id="Avatar"/>
+            <img src="<%="../icons/" + user.getAvatar() + ".svg"%>" id="Avatar"/>
             <div class="Buttons">
                 <% if(loggedInUserId == homePageUserId){%>
                     <button class="AddButtons" id="CategoryButton">Add a Category</button>

@@ -25,16 +25,11 @@ public class CommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         int blogId = Integer.parseInt(httpServletRequest.getParameter("blogId"));
-        System.out.println(blogId);
         String commentBody = httpServletRequest.getParameter("commentBody");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
         Comments toInsert = new Comments(blogId, 1, commentBody, dateFormat.format(date));
-        try {
-            CommentsDao.insertComment(toInsert);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        CommentsDao.insertComment(toInsert);
         httpServletRequest.getRequestDispatcher("views/viewBlog.jsp").forward(httpServletRequest, httpServletResponse);
     }
 }

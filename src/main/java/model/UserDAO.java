@@ -32,7 +32,7 @@ public class UserDAO {
     }
 
     public static boolean successLogin(String username, String password) throws SQLException {
-       return getPasswordByUsername(username).equals(password);
+        return getPasswordByUsername(username).equals(password);
     }
 
     public static void addUser(User user) throws SQLException {

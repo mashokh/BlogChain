@@ -59,9 +59,10 @@ public class CategoryDao {
             PreparedStatement getIdStatement = DataBase.getConnection().
                     prepareStatement("SELECT id FROM categories WHERE name = \"" + name + "\"");
             ResultSet rs = getIdStatement.executeQuery();
+            rs.next();
             id = rs.getInt("id");
         } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            throwables.printStackTrace();
         }
         return id;
     }
@@ -94,4 +95,3 @@ public class CategoryDao {
     }
 
 }
-

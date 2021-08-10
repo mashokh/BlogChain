@@ -61,4 +61,16 @@ public class CommentsDao {
             throwables.printStackTrace();
         }
     }
+
+    public static void deleteCommentsByUserId(int user_id) {
+        Connection conn = DataBase.getConnection();
+        PreparedStatement statement;
+        try {
+            statement = conn.prepareStatement("DELETE FROM comments WHERE user_id = ?");
+            statement.setInt(1, user_id);
+            statement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

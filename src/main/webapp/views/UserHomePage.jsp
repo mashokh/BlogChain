@@ -1,7 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="com.mysql.cj.protocol.Resultset" %>
-<%@ page import="model.User" %><%--
+<%@ page import="model.User" %>
+<%@ page import="model.Blogs" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 05.08.2021
@@ -12,7 +13,7 @@
 <%--<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>--%>
 <%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
 <%
-    ResultSet blogs = (ResultSet) session.getAttribute("blogs");
+    ArrayList<Blogs> blogs = (ArrayList<Blogs>) session.getAttribute("blogs");
     User user = (User) session.getAttribute("user");
     int loggedInUserId = (Integer) (session.getAttribute("loggedInUserId"));
     int homePageUserId = (Integer) (session.getAttribute("homePageUserId"));
@@ -21,7 +22,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><%=user.getUsername() + "'s page"%></title>
-        <link rel="stylesheet" type="text/css" media="screen" href="../css/HomePage.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/UserHomePage.css">
     </head>
     <body>
         <div class="NavigationBar" id="MyNavigationBar">
@@ -41,30 +42,32 @@
         <div class="Blogs" id="UsersBlogs">
             <p style="font-size: 40px">Blogs</p>
             <%
-                while(blogs.next()){
+                for(int i = 0; i < blogs.size(); i++){
             %>
             <p class="DatesAndBlogs">
-                <a class="Blogs" href = /> <%=blogs.getString("title")%> </a>
-                <a class="Buttons" href="/UserHomePage"> delete</a>
+                <a class="Blogs" href = /> <%=blogs.get(i).getTitle()%> </a>
+                <%if(loggedInUserId == homePageUserId){%>
+                    <a class="Buttons" href="/UserHomePage"> delete</a>
+                <%}%>
             </p>
-                <%=blogs.getString("created_at")%> <br><br>
+                <%=blogs.get(i).getCreated_at()%>
             </p>
             </p>
                 <%
                     String result = "";
-                    String str = blogs.getString("text");
-                    int i = 0;
+                    String str = blogs.get(i).getText();
+                    int j = 0;
                     int wordsToShow = 10;
-                    while(i < str.length()){
-                        result = result + str.charAt(i);
-                        if(str.charAt(i) == ' '){
+                    while(j < str.length()){
+                        result = result + str.charAt(j);
+                        if(str.charAt(j) == ' '){
                             wordsToShow -= 1;
                         }
                         if(wordsToShow == 0){
-                            i = str.length();
+                            j = str.length();
                             result += "...";
                         }
-                        i += 1;
+                        j += 1;
                     }
                 %>
                 <%=result%>
@@ -72,7 +75,7 @@
                 }
             %>
         </div>
-        <div id="myModal" class="modal">
+        <div id="blogModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="close">&times;</span>
@@ -100,39 +103,26 @@
             </div>
 
         </div>
+        </div>
+        <div id="categoryModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Request to Add a Category</h2>
+                </div>
+                <div class="modal-body">
+                    <form method = "post", id="categoryContainer">
+                        <div id="categoryNameContainer">
+                            <div class="controls">
+                                <input type="text" name="category" title="category" class="CategoryName" placeholder="Enter category" maxlength="16" required="" id="Category">
+                                <button class="AddCategoryButton" type="submit">Add</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-        <script>
-            window.onscroll = function() {myFunction()};
-
-            var header = document.getElementById("MyNavigationBar");
-            var sticky = header.offsetTop;
-
-            function myFunction() {
-                if (window.pageYOffset > sticky) {
-                    header.classList.add("sticky");
-                } else {
-                    header.classList.remove("sticky");
-                }
-            }
-            var modal = document.getElementById("myModal");
-
-            var btn = document.getElementById("BlogButton");
-
-            var span = document.getElementsByClassName("close")[0];
-
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
-
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-        </script>
+        </div>
+         <script src="../JS/UserHomePage.js"></script>
     </body>
 </html>

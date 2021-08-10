@@ -7,18 +7,17 @@ import java.util.ArrayList;
 
 
 public class BlogsDao {
-    public static ResultSet getBlogsByUserId(int userId) throws SQLException{
-        ArrayList<String> result = new ArrayList<>();
+    public static ArrayList<Blogs> getBlogsByUserId(int userId) throws SQLException{
+        ArrayList<Blogs> result = new ArrayList<>();
         Connection connection = DataBase.getConnection();
         PreparedStatement statement = connection.prepareStatement("select * from blogs.blogs where created_by = ?");
 
         statement.setString(1, String.valueOf(userId));
-        ResultSet resultSet = statement.executeQuery();
-//        while(resultSet.next()) {
-//            System.out.println("2");
-//            result.add(resultSet.getString("title"));
-//        }
-        return resultSet;
+        ResultSet resultset = statement.executeQuery();
+       while(resultset.next()){
+            result.add(new Blogs(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
+        }
+        return result;
     }
 
     public static ArrayList<Blogs> getBlogsByCategoryId(int categoryId) throws SQLException{
@@ -38,5 +37,17 @@ public class BlogsDao {
             result.add(new Blogs(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
         }
         return result;
+    }
+
+    public static void addBlog(String title, String text, int created_by, String created_at, int category_id) throws SQLException {
+        Connection connection = DataBase.getConnection();
+        PreparedStatement statement = connection.prepareStatement("insert into blogs.blogs(title, text, created_by, created_at, category_id)" +
+                "values (?,?,?,?,?)");
+        statement.setString(1, title);
+        statement.setString(2, text);
+        statement.setInt(3, created_by);
+        statement.setString(4, created_at);
+        statement.setInt(5, category_id);
+        statement.executeUpdate();
     }
 }

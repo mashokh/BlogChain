@@ -23,8 +23,30 @@
 <body>
     <%
         for (Comments comment : comments) {
-            out.println("<h1>" + comment.getText() + "</h1>");
-            out.println("<h2>" + comment.getCreated_at() + "</h2>");
+    %>
+
+    <div class = "comment">
+        <ul class = "user_comment">
+            <div class = "user_avatar">
+                <img src = "">
+                <div class = "comment_body">
+                    <p>
+                        <% out.println(comment.getText()); %>
+                    </p>
+                </div>
+                <div class = "comment_info">
+                    <li>
+                        <i class = "comment_calendar"></i>
+                        <% out.println(comment.getCreated_at()); %>
+                        <i class = "user_name"></i>
+                        <%out.println(comment.getUser_id());%>
+                    </li>
+                </div>
+            </div>
+        </ul>
+    </div>
+
+    <%
         }
     %>
     <form method="post">

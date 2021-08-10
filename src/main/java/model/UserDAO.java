@@ -75,17 +75,20 @@ public class UserDAO {
         return false;
     }
 
-    public static int getIdByUsername(String username) throws SQLException {
+    public static int getIdByUsername(String username) {
         Connection connection = DataBase.getConnection();
         String query = "SELECT id FROM users WHERE username = ?;";
 
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, username);
+        try {
 
-        ResultSet rs = statement.executeQuery();
-        if (!rs.next()) return 0;
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) rs.getInt("id");
 
-        return rs.getInt("id");
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
+
+        return 0;
     }
 
     /**
@@ -127,7 +130,8 @@ public class UserDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
-            return rs.getBoolean("is_admin");
+            if (rs.next()) return rs.getBoolean("is_admin");
+
         } catch (SQLException throwables) {throwables.printStackTrace();}
         
         return false;

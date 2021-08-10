@@ -120,6 +120,15 @@ body {
    width: 39px;
 }
 
+#to-login-btn-container {
+    text-align: center;
+    font-size: 1.1rem;
+    padding-top: 10px;
+}
+
+.to-login-btn {
+    color: #3e2fbb;
+}
 
 
 

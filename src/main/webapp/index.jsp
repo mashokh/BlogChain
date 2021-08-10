@@ -1,9 +1,6 @@
-<%@ page import="model.BlogsDao" %>
-<%@ page import="model.Blogs" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="model.CategoryDao" %>
-<%@ page import="model.Category" %>
+<%@ page import="model.*" %>
 <!DOCTYPE html>
 
 <%
@@ -16,6 +13,8 @@
         categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
     ArrayList<Blogs> blogs = new ArrayList<Blogs>();
+    UserDAO.updateUserStatus("rati", true);
+    UserDAO.updateUserStatus("admin", false);
 //    ArrayList<Category> categories = CategoryDao.getCategories(true);
     try { blogs = BlogsDao.getBlogsByCategoryId(categoryId); }
     catch (SQLException throwables) { throwables.printStackTrace();}

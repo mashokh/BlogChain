@@ -18,7 +18,7 @@ public class RegisterServlet extends HttpServlet {
         if (request.getSession().getAttribute("user_id") == null)
             request.getRequestDispatcher("views/register.jsp").forward(request, response);
         else
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("/");
     }
 
     @Override
@@ -36,7 +36,7 @@ public class RegisterServlet extends HttpServlet {
                 } else {
                     UserDAO.addUser(newUser);
                     request.getSession().setAttribute("user_id", UserDAO.getIdByUsername(newUser.getUsername()));
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("/");
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

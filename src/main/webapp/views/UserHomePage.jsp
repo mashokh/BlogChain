@@ -1,6 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.User" %>
-<%@ page import="model.Blogs" %>
+<%@ page import="model.Blog" %>
 <%@ page import="model.Category" %><%--
   Created by IntelliJ IDEA.
   User: User
@@ -10,9 +10,13 @@
 --%>
 
 <%
-    ArrayList<Blogs> blogs = (ArrayList<Blogs>) session.getAttribute("blogs");
+    ArrayList<Blog> blogs = (ArrayList<Blog>) session.getAttribute("blogs");
     User user = (User) session.getAttribute("user");
-    int loggedInUserId = (Integer) (session.getAttribute("loggedInUserId"));
+    int loggedInUserId;
+    if(session.getAttribute("loggedInUserId") == null)
+        loggedInUserId = -1;
+    else
+        loggedInUserId = (Integer) (session.getAttribute("loggedInUserId"));
     int homePageUserId = (Integer) (session.getAttribute("homePageUserId"));
     ArrayList<Category> categories = (ArrayList<Category>) session.getAttribute("categories");
 %>
@@ -40,20 +44,20 @@
         <div class="Blogs" id="UsersBlogs">
             <p style="font-size: 40px">Blogs</p>
             <%
-                for(int i = 0; i < blogs.size(); i++){
+                for(Blog blog : blogs){
             %>
             <p class="DatesAndBlogs">
-                <a class="Blogs" href = /> <%=blogs.get(i).getTitle()%> </a>
+                <a class="Blogs" href = /><%=blog.getTitle()%> </a>
                 <%if(loggedInUserId == homePageUserId){%>
-                    <form action="/DeleteBlog?blogTitle=<%=blogs.get(i).getTitle()%>" method="post">
+                    <form action="/DeleteBlog?blogTitle=<%=blog.getTitle()%>" method="post">
                         <input type="submit" name="delete" value="delete" />
                     </form>
                 <%}%>
             </p>
-                <%=blogs.get(i).getCreated_at()%>
+                <%=blog.getCreated_at()%> <br>
                 <%
                     String result = "";
-                    String str = blogs.get(i).getText();
+                    String str = blog.getText();
                     int j = 0;
                     int wordsToShow = 10;
                     while(j < str.length()){
@@ -89,8 +93,8 @@
                         </div>
                         <label for="categories">choose a category:</label>
                         <select name="chosen_category" id="categories">
-                            <%for(int i = 0; i < categories.size(); i++){%>
-                                <option value=<%=categories.get(i).getName()%>><%=categories.get(i).getName()%>></option>
+                            <%for(Category category : categories){%>
+                                <option value=<%=category.getName()%>><%=category.getName()%> </option>
                             <%}%>
                         </select>
                         <br><br>

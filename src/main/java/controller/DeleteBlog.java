@@ -15,18 +15,14 @@ import java.sql.SQLException;
 public class DeleteBlog extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        super.doGet(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String blogTitle = req.getParameter("blogTitle");
         int userId = (Integer) req.getSession().getAttribute("user_id");
-        try {
-            BlogsDao.deleteBlog(blogTitle);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        BlogsDao.deleteBlog(blogTitle);
         resp.sendRedirect("/UserHomePage?userId=" + userId);
     }
 }

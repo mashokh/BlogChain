@@ -1,6 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.User" %>
-<%@ page import="model.Blogs" %>
+<%@ page import="model.Blog" %>
 <%@ page import="model.Category" %><%--
   Created by IntelliJ IDEA.
   User: User
@@ -10,9 +10,13 @@
 --%>
 
 <%
-    ArrayList<Blogs> blogs = (ArrayList<Blogs>) session.getAttribute("blogs");
+    ArrayList<Blog> blogs = (ArrayList<Blog>) session.getAttribute("blogs");
     User user = (User) session.getAttribute("user");
-    int loggedInUserId = (Integer) (session.getAttribute("loggedInUserId"));
+    int loggedInUserId;
+    if(session.getAttribute("loggedInUserId") == null)
+        loggedInUserId = -1;
+    else
+        loggedInUserId = (Integer) (session.getAttribute("loggedInUserId"));
     int homePageUserId = (Integer) (session.getAttribute("homePageUserId"));
     ArrayList<Category> categories = (ArrayList<Category>) session.getAttribute("categories");
 %>
@@ -40,10 +44,10 @@
         <div class="Blogs" id="UsersBlogs">
             <p style="font-size: 40px">Blogs</p>
             <%
-                for(Blogs blog : blogs){
+                for(Blog blog : blogs){
             %>
             <p class="DatesAndBlogs">
-                <a class="Blogs" href = /><%=blogs.get(i).getTitle()%> </a>
+                <a class="Blogs" href = /><%=blog.getTitle()%> </a>
                 <%if(loggedInUserId == homePageUserId){%>
                     <form action="/DeleteBlog?blogTitle=<%=blog.getTitle()%>" method="post">
                         <input type="submit" name="delete" value="delete" />

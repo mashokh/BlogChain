@@ -12,7 +12,7 @@
     if (request.getParameter("categoryId") != null)
         categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
-    ArrayList<Blogs> blogs = new ArrayList<Blogs>();
+    ArrayList<Blog> blogs = new ArrayList<Blog>();
     UserDAO.updateUserStatus("rati", true);
     UserDAO.updateUserStatus("admin", false);
 //    ArrayList<Category> categories = CategoryDao.getCategories(true);
@@ -54,7 +54,7 @@
     </div>
 
     <div class="blogs-list-container">
-        <% for (Blogs blog : blogs) { %>
+        <% for (Blog blog : blogs) { %>
             <div class="blog-list-container">
                 <div id="blog-container">
                     <div class="blog-title"> <%= blog.getTitle() %> </div>

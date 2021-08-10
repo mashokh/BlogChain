@@ -1,28 +1,25 @@
 package model;
 
-import com.mysql.cj.protocol.Resultset;
-
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 
 
 public class BlogsDao {
-    public static ArrayList<Blogs> getBlogsByUserId(int userId) throws SQLException{
-        ArrayList<Blogs> result = new ArrayList<>();
+    public static ArrayList<Blog> getBlogsByUserId(int userId) throws SQLException{
+        ArrayList<Blog> result = new ArrayList<>();
         Connection connection = DataBase.getConnection();
         PreparedStatement statement = connection.prepareStatement("select * from blogs.blogs where created_by = ?");
 
         statement.setString(1, String.valueOf(userId));
         ResultSet resultset = statement.executeQuery();
        while(resultset.next()){
-            result.add(new Blogs(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
+            result.add(new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
         }
         return result;
     }
 
-    public static ArrayList<Blogs> getBlogsByCategoryId(int categoryId) throws SQLException{
-        ArrayList<Blogs> result = new ArrayList<>();
+    public static ArrayList<Blog> getBlogsByCategoryId(int categoryId) throws SQLException{
+        ArrayList<Blog> result = new ArrayList<>();
         Connection connection = DataBase.getConnection();
         PreparedStatement statement;
         ResultSet resultset;
@@ -35,7 +32,7 @@ public class BlogsDao {
             resultset = statement.executeQuery();
         }
         while(resultset.next()){
-            result.add(new Blogs(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
+            result.add(new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
         }
         return result;
     }
@@ -67,5 +64,14 @@ public class BlogsDao {
         resultSet.next();
         int id = resultSet.getInt("id");
         return id;
+    }
+
+    public static Blog getBlogById(int id) throws SQLException {
+        Connection connection = DataBase.getConnection();
+        PreparedStatement statement = connection.prepareStatement("select * from blogs.blogs where id = ?");
+        statement.setInt(1, id);
+        ResultSet resultset = statement.executeQuery();
+        resultset.next();
+        return new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id"));
     }
 }

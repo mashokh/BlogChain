@@ -3,14 +3,14 @@ package model;
 
 import java.util.Date;
 
-public class Blogs {
+public class Blog {
     private String title;
     private String text;
     private String created_by;
     private String created_at;
     private String category_id;
 
-    public Blogs(String title, String text, String created_by, String created_at, String category_id) {
+    public Blog(String title, String text, String created_by, String created_at, String category_id) {
         this.title = title;
         this.text = text;
         this.created_by = created_by;

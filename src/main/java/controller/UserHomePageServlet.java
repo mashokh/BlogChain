@@ -21,25 +21,19 @@ public class UserHomePageServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = Integer.parseInt(req.getParameter("userId"));
-        System.out.println(userId);
         HttpSession session = req.getSession();
         int loggedInUserId = -1;
         if(session.getAttribute(("user_id")) != null){
             loggedInUserId = (Integer) session.getAttribute("user_id");
         }
-        try {
-            User user = UserDAO.getUserById(userId);
-            ArrayList<Blogs> blogs = BlogsDao.getBlogsByUserId(userId);
-            ArrayList<Category> categories = CategoryDao.getCategories(true);
-            session.setAttribute("blogs", blogs);
-            session.setAttribute("loggedInUserId", loggedInUserId);
-            session.setAttribute("homePageUserId", userId);
-            session.setAttribute("user", user);
-            session.setAttribute("categories", categories);
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        User user = UserDAO.getUserById(userId);
+        ArrayList<Blog> blogs = BlogsDao.getBlogsByUserId(userId);
+        ArrayList<Category> categories = CategoryDao.getCategories(true);
+        session.setAttribute("blogs", blogs);
+        session.setAttribute("loggedInUserId", loggedInUserId);
+        session.setAttribute("homePageUserId", userId);
+        session.setAttribute("user", user);
+        session.setAttribute("categories", categories);
         req.getRequestDispatcher("/views/UserHomePage.jsp").forward(req, resp);
     }
 
@@ -55,11 +49,7 @@ public class UserHomePageServlet extends HttpServlet{
 
             String formatedDate = date.format(formatter);
             int created_by = (int) req.getSession().getAttribute("user_id");
-            try {
-                BlogsDao.addBlog(title, text, created_by, formatedDate, categoryId);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            BlogsDao.addBlog(title, text, created_by, formatedDate, categoryId);
         } else{
             String suggestedCategory = req.getParameter("category");
             CategoryDao.suggestCategory(suggestedCategory);

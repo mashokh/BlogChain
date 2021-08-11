@@ -12,7 +12,9 @@
     if (request.getParameter("categoryId") != null)
         categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
+
     ArrayList<Blogs> blogs = new ArrayList<Blogs>();
+
     try { blogs = BlogsDao.getBlogsByCategoryId(categoryId); }
     catch (SQLException throwables) { throwables.printStackTrace();}
 %>
@@ -51,7 +53,7 @@
     </div>
 
     <div class="blogs-list-container">
-        <% for (Blogs blog : blogs) { %>
+        <% for (Blog blog : blogs) { %>
             <div class="blog-list-container">
                 <div id="blog-container">
                     <div class="blog-title"> <%= blog.getTitle() %> </div>

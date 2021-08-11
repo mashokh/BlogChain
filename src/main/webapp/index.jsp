@@ -13,10 +13,9 @@
         categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
 
-    ArrayList<Blogs> blogs = new ArrayList<Blogs>();
+    ArrayList<Blog> blogs = new ArrayList<Blog>();
 
-    try { blogs = BlogsDao.getBlogsByCategoryId(categoryId); }
-    catch (SQLException throwables) { throwables.printStackTrace();}
+    blogs = BlogsDao.getBlogsByCategoryId(categoryId);
 %>
 
 <html>

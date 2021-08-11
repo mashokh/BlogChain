@@ -14,7 +14,7 @@ public class BlogsDao {
             statement.setString(1, String.valueOf(userId));
             ResultSet resultset = statement.executeQuery();
             while(resultset.next()){
-                result.add(new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
+                result.add(new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -37,7 +37,7 @@ public class BlogsDao {
                     resultset = statement.executeQuery();
                 }
                 while(resultset.next()){
-                    result.add(new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
+                    result.add(new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -100,7 +100,7 @@ public class BlogsDao {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             resultset.next();
-            result = new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id"));
+            result = new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getString("category_id"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

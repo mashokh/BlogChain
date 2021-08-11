@@ -10,15 +10,15 @@
 --%>
 
 <%
-    ArrayList<Blog> blogs = (ArrayList<Blog>) session.getAttribute("blogs");
-    User user = (User) session.getAttribute("user");
+    ArrayList<Blog> blogs = (ArrayList<Blog>) request.getAttribute("blogs");
+    User user = (User) request.getAttribute("user");
     int loggedInUserId;
     if(session.getAttribute("loggedInUserId") == null)
         loggedInUserId = -1;
     else
-        loggedInUserId = (Integer) (session.getAttribute("loggedInUserId"));
-    int homePageUserId = (Integer) (session.getAttribute("homePageUserId"));
-    ArrayList<Category> categories = (ArrayList<Category>) session.getAttribute("categories");
+        loggedInUserId = (Integer) (request.getAttribute("loggedInUserId"));
+    int homePageUserId = (Integer) (request.getAttribute("homePageUserId"));
+    ArrayList<Category> categories = (ArrayList<Category>) request.getAttribute("categories");
 %>
 <html>
     <head>

@@ -6,6 +6,11 @@
     <title>Login</title>
 </head>
 <body>
+
+<div class="navbar-container">
+    <a href="/">Home</a>
+</div>
+
 <div id="login-container">
 
     <form method = "post">
@@ -25,6 +30,9 @@
         </div>
         <div id="login-submit-container">
             <button class="login-submit-btn" type="submit">Login</button>
+        </div>
+        <div id="to-register-btn-container">
+            <a class="to-register-btn" href="/register" >Register</a>
         </div>
     </form>
 

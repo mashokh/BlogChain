@@ -1,0 +1,87 @@
+body {
+    background-color: lightblue;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+#blog_body {
+    margin-left: 20px;
+    font-family: "Roboto Light";
+    font-size: 40px;
+}
+
+#blog_author {
+    cursor: pointer;
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+#date_created {
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+#blog_info {
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+#add_comment {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #000;
+}
+
+.separator:not(:empty)::before {
+    margin-right: .25em;
+}
+
+.separator:not(:empty)::after {
+    margin-left: .25em;
+}
+
+#comment {
+    margin-top: 20px;
+}
+
+#comment_avatar {
+    cursor: pointer;
+    margin-right: 30px;
+}
+
+#comment_info {
+    font-size: 20px;
+}
+
+#comment_body {
+    font-size: 25px;
+    font-family: "Century Schoolbook";
+}
+
+.vl {
+    border-left: 6px solid black;
+    height: auto;
+}
+
+#comment_calendar {
+   margin-left: 10px;
+}

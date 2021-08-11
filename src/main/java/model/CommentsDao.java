@@ -61,4 +61,28 @@ public class CommentsDao {
             throwables.printStackTrace();
         }
     }
+
+    public static void deleteCommentsByUserId(int user_id) {
+        Connection conn = DataBase.getConnection();
+        PreparedStatement statement;
+        try {
+            statement = conn.prepareStatement("DELETE FROM comments WHERE user_id = ?");
+            statement.setInt(1, user_id);
+            statement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void deleteCommentsByBlogId(int blog_id) {
+        Connection conn = DataBase.getConnection();
+        PreparedStatement statement;
+        try {
+            statement = conn.prepareStatement("DELETE FROM comments WHERE blog_id = ?");
+            statement.setInt(1, blog_id);
+            statement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

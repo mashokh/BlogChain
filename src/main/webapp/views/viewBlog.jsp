@@ -12,22 +12,47 @@
     User user = (User) session.getAttribute("user");
     Blog blog = BlogsDao.getBlogById(blogId);
     ArrayList<Comments> comments = CommentsDao.getCommentsByBlogId(blogId);
+    User author = UserDAO.getUserById(Integer.parseInt(blog.getCreated_by()));
+    String authorAvatar ="../icons/" + author.getAvatar() + ".svg";
 %>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" media="screen" href="../css/viewBlog.css">
     <title>
         <%
-            out.println("Viewing blog: " + blogId);
+            out.println("Viewing blog: " + blog.getTitle());
         %>
     </title>
 </head>
 <body>
 
-<p>
+<p id = "blog_body">
     <% out.println(blog.getText()); %>
 </p>
+<li id = "blog_info">
+    <i>
+        <img src = "<% out.println(authorAvatar); %>">
+    </i>
+    <i id = "blog_author">
+        <% out.println(author.getUsername());%>
+    </i>
 
+    <i id = "date_created">
+        <% out.println(blog.getCreated_at());%>
+    </i>
+</li>
+
+<div class="separator">Comments</div>
+
+<form id = "add_comment" method="post">
+    <div>
+        <label>Enter your comment text: </label>
+    </div>
+    <div>
+        <input type="text" name = "commentBody" placeholder="Enter your comment" size = "50" required=""/>
+        <input type = "submit" value = "Add Comment">
+    </div>
+</form>
 
 <%
     for (Comments comment : comments) {
@@ -35,36 +60,27 @@
         String avatar = "../icons/" + currUser.getAvatar() + ".svg";
 %>
 
-<div class = "comment">
-    <ul class = "user_comment">
-        <div class = "user_avatar">
-            <img src = "<%out.println(avatar);%>">
-            <div class = "comment_body">
+<div id = "comment">
+    <ul id = "user_comment" class = "vl">
+            <div id = "comment_body">
                 <p>
+                    <img id = "comment_avatar" src = "<%out.println(avatar);%>">
                     <% out.println(comment.getText()); %>
                 </p>
             </div>
-            <div class = "comment_info">
+            <div id = "comment_info">
                 <li>
-                    <i class = "comment_calendar"></i>
-                    <% out.println(comment.getCreated_at()); %>
-                    <i class = "user_name"></i>
-                    <%
-                        out.println(currUser.getUsername());
-                    %>
+                    <i id = "user_name"></i>
+                    <% out.println("By: " + currUser.getUsername()); %>
+                    <i id = "comment_calendar"></i>
+                    <% out.println("On: " + comment.getCreated_at()); %>
                 </li>
             </div>
-        </div>
     </ul>
 </div>
 
 <%
     }
 %>
-<form method="post">
-    <label>Enter your comment text: </label>
-    <input type="text" name = "commentBody"/>
-    <input type = "submit" value = "Add Comment">
-</form>
 </body>
 </html>

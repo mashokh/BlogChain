@@ -38,8 +38,10 @@ public class UserDAO {
         return "";
     }
 
+
     public static boolean successLogin(String username, String password) {
        return getPasswordByUsername(username).equals(password);
+
     }
 
     public static void addUser(User user) {
@@ -118,6 +120,7 @@ public class UserDAO {
         return users;
     }
 
+
     /**
      * @param username relevant username
      * @return true if the user is admin, otherwise - false
@@ -156,3 +159,4 @@ public class UserDAO {
 
 
 }
+

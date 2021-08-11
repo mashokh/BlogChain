@@ -1,22 +1,20 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="com.mysql.cj.protocol.Resultset" %>
 <%@ page import="model.User" %>
-<%@ page import="model.Blogs" %><%--
+<%@ page import="model.Blogs" %>
+<%@ page import="model.Category" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 05.08.2021
   Time: 13:32
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>--%>
-<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
+
 <%
     ArrayList<Blogs> blogs = (ArrayList<Blogs>) session.getAttribute("blogs");
     User user = (User) session.getAttribute("user");
     int loggedInUserId = (Integer) (session.getAttribute("loggedInUserId"));
     int homePageUserId = (Integer) (session.getAttribute("homePageUserId"));
+    ArrayList<Category> categories = (ArrayList<Category>) session.getAttribute("categories");
 %>
 <html>
     <head>
@@ -32,7 +30,7 @@
                 <% if(loggedInUserId == homePageUserId){%>
                     <button class="AddButtons" id="CategoryButton">Add a Category</button>
                     <button class="AddButtons" id="BlogButton">Add a Blog</button>
-                    <%if(user.getAdmin() == true){%>
+                    <%if(user.getAdmin()){%>
                         <a class="Buttons" href="/">Admin's HomePage</a>
                     <%}
                 }%>
@@ -47,12 +45,12 @@
             <p class="DatesAndBlogs">
                 <a class="Blogs" href = /> <%=blogs.get(i).getTitle()%> </a>
                 <%if(loggedInUserId == homePageUserId){%>
-                    <a class="Buttons" href="/UserHomePage"> delete</a>
+                    <form action="/DeleteBlog?blogTitle=<%=blogs.get(i).getTitle()%>" method="post">
+                        <input type="submit" name="delete" value="delete" />
+                    </form>
                 <%}%>
             </p>
                 <%=blogs.get(i).getCreated_at()%>
-            </p>
-            </p>
                 <%
                     String result = "";
                     String str = blogs.get(i).getText();
@@ -82,7 +80,7 @@
                     <h2>Add a Blog</h2>
                 </div>
                 <div class="modal-body">
-                    <form method = "post", id="blogContainer">
+                    <form method = "post" id="blogContainer">
                         <div id="titleContainer">
                             <div class="controls">
                                 <input type="text" name="blogTitle" title="title" class="BlogTitle" placeholder="Title" maxlength="16" required="" id="Title">
@@ -90,11 +88,10 @@
                             </div>
                         </div>
                         <label for="categories">choose a category:</label>
-                        <select name="categories" id="categories">
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
+                        <select name="chosen_category" id="categories">
+                            <%for(int i = 0; i < categories.size(); i++){%>
+                                <option value=<%=categories.get(i).getName()%>><%=categories.get(i).getName()%>></option>
+                            <%}%>
                         </select>
                         <br><br>
                     </form>
@@ -103,7 +100,6 @@
             </div>
 
         </div>
-        </div>
         <div id="categoryModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -111,7 +107,7 @@
                     <h2>Request to Add a Category</h2>
                 </div>
                 <div class="modal-body">
-                    <form method = "post", id="categoryContainer">
+                    <form method = "post" id="categoryContainer">
                         <div id="categoryNameContainer">
                             <div class="controls">
                                 <input type="text" name="category" title="category" class="CategoryName" placeholder="Enter category" maxlength="16" required="" id="Category">

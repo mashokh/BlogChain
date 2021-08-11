@@ -13,9 +13,6 @@
         categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
     ArrayList<Blogs> blogs = new ArrayList<Blogs>();
-    UserDAO.updateUserStatus("rati", true);
-    UserDAO.updateUserStatus("admin", false);
-//    ArrayList<Category> categories = CategoryDao.getCategories(true);
     try { blogs = BlogsDao.getBlogsByCategoryId(categoryId); }
     catch (SQLException throwables) { throwables.printStackTrace();}
 %>

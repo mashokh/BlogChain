@@ -86,7 +86,7 @@ public class UserDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
-            if (rs.next()) rs.getInt("id");
+            if (rs.next()) return rs.getInt("id");
 
         } catch (SQLException throwables) { throwables.printStackTrace(); }
 

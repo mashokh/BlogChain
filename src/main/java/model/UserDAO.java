@@ -137,5 +137,22 @@ public class UserDAO {
         return false;
     }
 
+    public static void updateUserStatus(String username, Boolean isAdmin) {
+        Connection connection = DataBase.getConnection();
+
+        String query = "UPDATE users SET is_admin = ? WHERE username =?;";
+        try {
+
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setBoolean(1, isAdmin);
+            statement.setString(2, username);
+            statement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 
 }

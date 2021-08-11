@@ -29,17 +29,14 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("error", "Passwords must be the same");
             request.getRequestDispatcher("views/register.jsp").forward(request, response);
         } else {
-            try {
-                if (UserDAO.usernameExists(newUser.getUsername())) {
-                    request.setAttribute("error", "Username already exists");
-                    request.getRequestDispatcher("views/register.jsp").forward(request, response);
-                } else {
-                    UserDAO.addUser(newUser);
-                    request.getSession().setAttribute("user_id", UserDAO.getIdByUsername(newUser.getUsername()));
-                    response.sendRedirect("/");
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+
+            if (UserDAO.usernameExists(newUser.getUsername())) {
+                request.setAttribute("error", "Username already exists");
+                request.getRequestDispatcher("views/register.jsp").forward(request, response);
+            } else {
+                UserDAO.addUser(newUser);
+                request.getSession().setAttribute("user_id", UserDAO.getIdByUsername(newUser.getUsername()));
+                response.sendRedirect("/");
             }
         }
     }

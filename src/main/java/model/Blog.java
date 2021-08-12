@@ -57,4 +57,23 @@ public class Blog {
     public void setCategory_id(String category_id) {
         this.category_id = category_id;
     }
+
+    public String getTruncatedText(){
+        String result = "";
+        String str = this.getText();
+        int j = 0;
+        int wordsToShow = 10;
+        while(j < str.length()){
+            result = result + str.charAt(j);
+            if(str.charAt(j) == ' '){
+                wordsToShow -= 1;
+            }
+            if(wordsToShow == 0){
+                j = str.length();
+                result += "...";
+            }
+            j += 1;
+        }
+        return result;
+    }
 }

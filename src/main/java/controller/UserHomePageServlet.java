@@ -21,10 +21,12 @@ public class UserHomePageServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = Integer.parseInt(req.getParameter("userId"));
+        System.out.println(userId);
         HttpSession session = req.getSession();
         int loggedInUserId = -1;
         if (session.getAttribute(("user_id")) != null) {
             loggedInUserId = (Integer) session.getAttribute("user_id");
+            System.out.println(loggedInUserId);
             User user = UserDAO.getUserById(userId);
             ArrayList<Blog> blogs = BlogsDao.getBlogsByUserId(userId);
             ArrayList<Category> categories = CategoryDao.getCategories(true);

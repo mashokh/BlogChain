@@ -1,10 +1,12 @@
-body {
-    background-color: lightblue;
-}
-
 h1 {
     color: white;
     text-align: center;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to left, #42275a 0%, #734b6d 100%);
+    font-size: 10px;
 }
 
 #blog_body {
@@ -78,10 +80,30 @@ h1 {
 }
 
 .vl {
-    border-left: 6px solid black;
+    border-left: 3px solid black;
     height: auto;
 }
 
 #comment_calendar {
    margin-left: 10px;
+}
+
+#link_to_home {
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 50px;
+}
+
+#save_blog {
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
 }

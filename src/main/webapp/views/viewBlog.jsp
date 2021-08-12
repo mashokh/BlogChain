@@ -9,7 +9,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
     int blogId = Integer.parseInt(request.getParameter("blogId"));
-    User user = (User) session.getAttribute("user");
     Blog blog = BlogsDao.getBlogById(blogId);
     ArrayList<Comments> comments = CommentsDao.getCommentsByBlogId(blogId);
     User author = UserDAO.getUserById(Integer.parseInt(blog.getCreated_by()));
@@ -31,16 +30,25 @@
 </p>
 <li id = "blog_info">
     <i>
-        <img src = "<% out.println(authorAvatar); %>">
+        <% out.println("<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(author.getUsername())+ ">"
+                +"<img src = "+ authorAvatar + ">" + "</a>"); %>
+
     </i>
     <i id = "blog_author">
-        <% out.println(author.getUsername());%>
+        <% out.println("<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(author.getUsername())+ ">"
+                + author.getUsername() + "</a>");%>
     </i>
 
     <i id = "date_created">
         <% out.println(blog.getCreated_at());%>
     </i>
 </li>
+
+<div>
+    <form action = "/SaveBlogServlet?blogId=<%out.println(blogId);%>" id = "save_blog" method="post">
+        <input type = "submit" value = "Save This Blog">
+    </form>
+</div>
 
 <div class="separator">Comments</div>
 
@@ -64,14 +72,16 @@
     <ul id = "user_comment" class = "vl">
             <div id = "comment_body">
                 <p>
-                    <img id = "comment_avatar" src = "<%out.println(avatar);%>">
+                    <% out.println("<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(currUser.getUsername())+ ">"
+                            +"<img id = \"comment_avatar\" src = "+ avatar + ">" + "</a>"); %>
                     <% out.println(comment.getText()); %>
                 </p>
             </div>
             <div id = "comment_info">
                 <li>
                     <i id = "user_name"></i>
-                    <% out.println("By: " + currUser.getUsername()); %>
+                    <% out.println("By: "+ "<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(currUser.getUsername())+ ">"
+                            + currUser.getUsername() + "</a>"); %>
                     <i id = "comment_calendar"></i>
                     <% out.println("On: " + comment.getCreated_at()); %>
                 </li>
@@ -82,5 +92,11 @@
 <%
     }
 %>
+
+<div>
+    <form action = "/" id = "link_to_home">
+        <input type = "submit" value = "Back To Home">
+    </form>
+</div>
 </body>
 </html>

@@ -59,3 +59,48 @@ html {
     padding: 10px 0 0 30%;
     font-size: 13px;
 }
+.sidebar-category a {
+    color: #dddddd;
+}
+
+.blogs-list-container {
+    font-size: 17px;
+}
+
+.blogs-title {
+    color: #dddddd;
+    margin-left: 20%;
+    font-size: 25px;
+}
+
+.blogs-list {
+    margin-left: 15%;
+    font-size: 17px;
+}
+
+.blog-container {
+    margin-bottom: 20px;
+}
+
+.blog-title {
+    color: #dddddd;
+}
+
+.blog-title-and-category {
+    margin-bottom: 20px;
+}
+
+.right-info {
+   float: right;
+}
+
+#blog-date-and-author {
+    margin-right: 6%;
+}
+.blog-category {
+    margin-right: 12%;
+}
+
+.blog-body {
+    margin-bottom: 20px;
+}

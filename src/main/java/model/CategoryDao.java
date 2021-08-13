@@ -78,6 +78,18 @@ public class CategoryDao {
         return false;
     }
 
+    public static String getCategoryNameById(int id){
+        try {
+            PreparedStatement getStatement = DataBase.getConnection().
+                    prepareStatement("SELECT name FROM categories where id = " + id);
+            ResultSet rs = getStatement.executeQuery();
+            if (rs.next()) return rs.getString("name");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return "";
+    }
+
 
     private static void generateCategoryList(ResultSet rs, ArrayList<Category> categories){
         try {

@@ -157,6 +157,29 @@ public class UserDAO {
         }
     }
 
+    private static boolean userExists(int id) {
+        return getUserById(id) != null;
+    }
+
+    public static boolean deleteUser(int id) {
+        if (!userExists(id)) return false;
+        BlogsDao.deleteBlogsByUser(id);
+
+        Connection connection = DataBase.getConnection();
+        String query = "DELETE FROM users WHERE id=?";
+
+        try {
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
+
+
+        return true;
+    }
+
 
 }
 

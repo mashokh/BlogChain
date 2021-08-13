@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,10 +26,15 @@ public class UserHomePageServlet extends HttpServlet{
         int loggedInUserId = -1;
         if (session.getAttribute(("user_id")) != null) {
             loggedInUserId = (Integer) session.getAttribute("user_id");
-            System.out.println(loggedInUserId);
             User user = UserDAO.getUserById(userId);
             ArrayList<Blog> blogs = BlogsDao.getBlogsByUserId(userId);
             ArrayList<Category> categories = CategoryDao.getCategories(true);
+            ArrayList<Integer> savedBlogsIds = SavedBlogsDao.usersSavedBlogsIds(loggedInUserId);
+            ArrayList<Blog> savedBlogs = new ArrayList<>();
+            for(int id:savedBlogsIds){
+                System.out.println(id);
+                savedBlogs.add(BlogsDao.getBlogById(id));
+            }
             req.setAttribute("blogs", blogs);
             req.setAttribute("loggedInUserId", loggedInUserId);
             req.setAttribute("homePageUserId", userId);

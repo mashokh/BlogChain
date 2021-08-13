@@ -1,6 +1,7 @@
 package model;
 
 public class Comments {
+    private int comment_id;
     private int blog_id;
     private int user_id;
     private String text;
@@ -11,6 +12,14 @@ public class Comments {
         this.user_id = user_id;
         this.text = text;
         this.created_at = created_at;
+    }
+
+    public int getComment_id() {
+        return comment_id;
+    }
+
+    public void setComment_id(int comment_id) {
+        this.comment_id = comment_id;
     }
 
     public int getBlog_id() {

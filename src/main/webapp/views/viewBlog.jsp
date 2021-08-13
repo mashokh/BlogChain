@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
+    int loggedInUserId = (Integer) session.getAttribute("user_id");
     int blogId = Integer.parseInt(request.getParameter("blogId"));
     Blog blog = BlogsDao.getBlogById(blogId);
     ArrayList<Comments> comments = CommentsDao.getCommentsByBlogId(blogId);
@@ -85,6 +86,12 @@
                     <i id = "comment_calendar"></i>
                     <% out.println("On: " + comment.getCreated_at()); %>
                 </li>
+                <% if(comment.getUser_id() == loggedInUserId)
+                        out.println("<form action = \"/DeleteCommentServlet?commentId="+ comment.getComment_id() +"\" " +
+                                "id = \"delete_blog\" method = \"post\">\n" +
+                                "        <input type = \"submit\" value = \"Delete Comment\">\n" +
+                                "    </form>");
+                %>
             </div>
     </ul>
 </div>

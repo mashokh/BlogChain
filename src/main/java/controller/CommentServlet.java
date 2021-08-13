@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,18 +17,23 @@ import java.util.Date;
 
 public class CommentServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        httpServletRequest.getRequestDispatcher("views/viewBlog.jsp").forward(httpServletRequest, httpServletResponse);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("user_id") == null) {
+            request.getRequestDispatcher("views/login.jsp").forward(request, response);
+        }
+        else
+            request.getRequestDispatcher("views/viewBlog.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        int blogId = Integer.parseInt(httpServletRequest.getParameter("blogId"));
-        String commentBody = httpServletRequest.getParameter("commentBody");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int blogId = Integer.parseInt(request.getParameter("blogId"));
+        int userId = (Integer) request.getSession().getAttribute("user_id");
+        String commentBody = request.getParameter("commentBody");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
-        Comments toInsert = new Comments(blogId, 1, commentBody, dateFormat.format(date));
+        Comments toInsert = new Comments(blogId, userId, commentBody, dateFormat.format(date));
         CommentsDao.insertComment(toInsert);
-        httpServletRequest.getRequestDispatcher("views/viewBlog.jsp").forward(httpServletRequest, httpServletResponse);
+        request.getRequestDispatcher("views/viewBlog.jsp").forward(request, response);
     }
 }

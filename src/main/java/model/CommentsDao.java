@@ -17,7 +17,10 @@ public class CommentsDao {
 
             ResultSet rs = statement.executeQuery();
             while(rs.next()) {
-                res.add(new Comments(Integer.parseInt(rs.getString(2)), Integer.parseInt(rs.getString(3)), rs.getString(4), rs.getString(5)));
+                Comments comment = new Comments(Integer.parseInt(rs.getString(2)),
+                        Integer.parseInt(rs.getString(3)), rs.getString(4), rs.getString(5));
+                comment.setComment_id(Integer.parseInt(rs.getString(1)));
+                res.add(comment);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -25,26 +28,24 @@ public class CommentsDao {
         return res;
     }
 
-    public static ArrayList<Comments> getCommentsByUserId(int userId) {
-        ArrayList<Comments> res = new ArrayList<>();
+    public static Comments getCommentById(int commentId) {
         Connection conn = DataBase.getConnection();
-
         PreparedStatement statement;
+        Comments comment = null;
         try {
-            statement = conn.prepareStatement("select * from comments where user_id = ?;");
-            statement.setInt(1, userId);
+            statement = conn.prepareStatement("select * from comments where id = ?;");
+            statement.setInt(1, commentId);
 
             ResultSet rs = statement.executeQuery();
             if(!rs.next())
                 return null;
-            while(rs.next()) {
-                res.add(new Comments(Integer.parseInt(rs.getString(2)), Integer.parseInt(rs.getString(3)),
-                        rs.getString(4), rs.getString(5)));
-            }
+            comment = new Comments(Integer.parseInt(rs.getString(2)),
+                    Integer.parseInt(rs.getString(3)), rs.getString(4), rs.getString(5));
+            comment.setComment_id(Integer.parseInt(rs.getString(1)));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return res;
+        return comment;
     }
 
     public static void insertComment(Comments comment) {
@@ -56,6 +57,42 @@ public class CommentsDao {
             statement.setInt(2, comment.getUser_id());
             statement.setString(3, comment.getText());
             statement.setString(4, comment.getCreated_at());
+            statement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void deleteCommentByCommentId(int comment_id) {
+        Connection conn = DataBase.getConnection();
+        PreparedStatement statement;
+        try {
+            statement = conn.prepareStatement("DELETE FROM comments WHERE id = ?");
+            statement.setInt(1, comment_id);
+            statement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void deleteCommentsByUserId(int user_id) {
+        Connection conn = DataBase.getConnection();
+        PreparedStatement statement;
+        try {
+            statement = conn.prepareStatement("DELETE FROM comments WHERE user_id = ?");
+            statement.setInt(1, user_id);
+            statement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void deleteCommentsByBlogId(int blog_id) {
+        Connection conn = DataBase.getConnection();
+        PreparedStatement statement;
+        try {
+            statement = conn.prepareStatement("DELETE FROM comments WHERE blog_id = ?");
+            statement.setInt(1, blog_id);
             statement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

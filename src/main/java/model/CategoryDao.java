@@ -9,21 +9,24 @@ import java.util.ArrayList;
 public class CategoryDao {
 
     public static boolean suggestCategory(String name){
+        if (categoryExists(name)){
+            return false;
+        }
         try {
-            PreparedStatement insertStatement = DataBase.getConnection().
+            PreparedStatement suggestStatement = DataBase.getConnection().
                     prepareStatement("INSERT INTO categories(name,is_approved) values(\"" + name + "\", false)");
-            insertStatement.execute();
-            return true;
+            suggestStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
+        return true;
     }
 
     public static ArrayList<Category> getCategories(boolean status){
         ArrayList<Category> categories = new ArrayList<>();
         try {
-            PreparedStatement getStatement = DataBase.getConnection().prepareStatement("SELECT * FROM categories WHERE is_approved is " + status);
+            PreparedStatement getStatement = DataBase.getConnection().
+                    prepareStatement("SELECT * FROM categories WHERE is_approved is " + status);
             ResultSet rs = getStatement.executeQuery();
             generateCategoryList(rs, categories);
         } catch (SQLException throwables) {
@@ -59,8 +62,9 @@ public class CategoryDao {
             PreparedStatement getIdStatement = DataBase.getConnection().
                     prepareStatement("SELECT id FROM categories WHERE name = \"" + name + "\"");
             ResultSet rs = getIdStatement.executeQuery();
-            rs.next();
-            id = rs.getInt("id");
+            if (rs.next()){
+              id = rs.getInt("id");
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -79,6 +83,17 @@ public class CategoryDao {
         return false;
     }
 
+    public static String getCategoryNameById(int id){
+        try {
+            PreparedStatement getStatement = DataBase.getConnection().
+                    prepareStatement("SELECT name FROM categories where id = " + id);
+            ResultSet rs = getStatement.executeQuery();
+            if (rs.next()) return rs.getString("name");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return "";
+    }
 
     private static void generateCategoryList(ResultSet rs, ArrayList<Category> categories){
         try {

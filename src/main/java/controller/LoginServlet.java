@@ -18,23 +18,20 @@ public class LoginServlet extends HttpServlet {
         if (request.getSession().getAttribute("user_id") == null)
             request.getRequestDispatcher("views/login.jsp").forward(request, response);
         else
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            response.sendRedirect("/");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = String.valueOf(request.getParameter("password").hashCode());
-        try {
-            if (UserDAO.successLogin(username, password)) {
-                request.getSession().setAttribute("user_id", UserDAO.getIdByUsername(username));
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            } else {
-                request.setAttribute("error", "Username or password is incorrect");
-                request.getRequestDispatcher("views/login.jsp").forward(request, response);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        if (UserDAO.successLogin(username, password)) {
+            request.getSession().setAttribute("user_id", UserDAO.getIdByUsername(username));
+            response.sendRedirect("/");
+        } else {
+            request.setAttribute("error", "Username or password is incorrect");
+            request.getRequestDispatcher("views/login.jsp").forward(request, response);
         }
+
     }
 }

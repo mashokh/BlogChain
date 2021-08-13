@@ -3,14 +3,14 @@ package model;
 
 import java.util.Date;
 
-public class Blogs {
+public class Blog {
     private String title;
     private String text;
-    private String created_by;
+    private int created_by;
     private String created_at;
     private String category_id;
 
-    public Blogs(String title, String text, String created_by, String created_at, String category_id) {
+    public Blog(String title, String text, int created_by, String created_at, String category_id) {
         this.title = title;
         this.text = text;
         this.created_by = created_by;
@@ -34,11 +34,11 @@ public class Blogs {
         this.text = text;
     }
 
-    public String getCreated_by() {
+    public int getCreated_by() {
         return created_by;
     }
 
-    public void setCreated_by(String created_by) {
+    public void setCreated_by(int created_by) {
         this.created_by = created_by;
     }
 
@@ -56,5 +56,24 @@ public class Blogs {
 
     public void setCategory_id(String category_id) {
         this.category_id = category_id;
+    }
+
+    public String getTruncatedText(){
+        String result = "";
+        String str = this.getText();
+        int j = 0;
+        int wordsToShow = 10;
+        while(j < str.length()){
+            result = result + str.charAt(j);
+            if(str.charAt(j) == ' '){
+                wordsToShow -= 1;
+            }
+            if(wordsToShow == 0){
+                j = str.length();
+                result += "...";
+            }
+            j += 1;
+        }
+        return result;
     }
 }

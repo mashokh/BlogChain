@@ -18,6 +18,7 @@ html {
 body {
     display: grid;
     place-items: center;
+    grid-template-rows: 11%
 }
 
 #login-container {
@@ -97,4 +98,25 @@ body {
 
 .to-register-btn {
     color: #3e2fbb;
+}
+
+.navbar-container {
+    overflow: hidden;
+    background-color: #4e45aa;
+    margin-right: 82%;
+    border-radius: 7px;
+}
+
+.navbar-container a {
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px ;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar-container a:hover {
+    background-color: #ddd;
+    color: black;
 }

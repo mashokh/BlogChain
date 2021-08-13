@@ -1,23 +1,28 @@
 package controller;
 
+import model.BlogsDao;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
-@WebServlet("/AddBlog")
+@WebServlet(name = "DeleteBlog", urlPatterns = { "/DeleteBlog/*"})
 
-public class AddBlogServlet extends HttpServlet {
+public class DeleteBlog extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userId = (String) req.getSession().getAttribute("user_id");
-        req.getRequestDispatcher("view/login.jsp").forward(req, resp);
+        super.doGet(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("views/login.jsp").forward(req, resp);
+        String blogTitle = req.getParameter("blogTitle");
+        int userId = (Integer) req.getSession().getAttribute("user_id");
+        BlogsDao.deleteBlog(blogTitle);
+        resp.sendRedirect("/UserHomePage?userId=" + userId);
     }
 }

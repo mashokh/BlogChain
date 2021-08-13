@@ -6,6 +6,11 @@
     <title>Login</title>
 </head>
 <body>
+
+<div class="navbar-container">
+    <a href="/">Home</a>
+</div>
+
 <div id="login-container">
 
     <form method = "post">

@@ -1,5 +1,6 @@
 package model;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ public class BlogsDao {
             statement.setString(1, String.valueOf(userId));
             ResultSet resultset = statement.executeQuery();
             while(resultset.next()){
-                result.add(new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
+                result.add(new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -37,7 +38,7 @@ public class BlogsDao {
                     resultset = statement.executeQuery();
                 }
                 while(resultset.next()){
-                    result.add(new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
+                    result.add(new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -100,7 +101,23 @@ public class BlogsDao {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             resultset.next();
-            result = new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getString("created_by"), resultset.getString("created_at"), resultset.getString("category_id"));
+            result = new Blog(resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getString("category_id"));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
+
+    public static boolean deleteBlogByTitleAndUserId(String title, int userId){
+        boolean result = false;
+        Connection connection = DataBase.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("delete from blogs.blogs where title = ? and created_by = ?");
+            statement.setString(1, title);
+            statement.setInt(2, userId);
+            int updatedRowCount = statement.executeUpdate();
+            if(updatedRowCount > 0)
+                result = true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

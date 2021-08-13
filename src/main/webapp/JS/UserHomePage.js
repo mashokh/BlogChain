@@ -1,6 +1,6 @@
 window.onscroll = function() {myFunction()};
 
-var header = document.getElementById("MyNavigationBar");
+var header = document.getElementById("navigation-bar");
 var sticky = header.offsetTop;
 
 function myFunction() {
@@ -10,9 +10,9 @@ function myFunction() {
         header.classList.remove("sticky");
     }
 }
-var blogModal = document.getElementById("blogModal");
+var blogModal = document.getElementById("blog-modal");
 
-var blogButton = document.getElementById("BlogButton");
+var blogButton = document.getElementById("blog-button");
 
 var blogClose = document.getElementsByClassName("close")[0];
 
@@ -26,9 +26,9 @@ if(blogButton != null) {
         blogModal.style.display = "none";
     }
 }
-var categoryModal = document.getElementById("categoryModal");
+var categoryModal = document.getElementById("category-modal");
 
-var categoryButton = document.getElementById("CategoryButton");
+var categoryButton = document.getElementById("category-button");
 
 var categoryClose = document.getElementsByClassName("close")[1];
 

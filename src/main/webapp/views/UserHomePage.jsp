@@ -1,7 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.User" %>
 <%@ page import="model.Blog" %>
-<%@ page import="model.Category" %><%--
+<%@ page import="model.Category" %>
+<%@ page import="model.UserDAO" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 05.08.2021
@@ -10,85 +11,72 @@
 --%>
 
 <%
-    ArrayList<Blog> blogs = (ArrayList<Blog>) session.getAttribute("blogs");
-    User user = (User) session.getAttribute("user");
-    int loggedInUserId;
-    if(session.getAttribute("loggedInUserId") == null)
-        loggedInUserId = -1;
-    else
-        loggedInUserId = (Integer) (session.getAttribute("loggedInUserId"));
-    int homePageUserId = (Integer) (session.getAttribute("homePageUserId"));
-    ArrayList<Category> categories = (ArrayList<Category>) session.getAttribute("categories");
+    ArrayList<Blog> blogs = (ArrayList<Blog>) request.getAttribute("blogs");
+    User homePageUser = (User) request.getAttribute("user");
+    int loggedInUserId = (Integer) (request.getAttribute("loggedInUserId"));
+    User loggedInUser = UserDAO.getUserById(loggedInUserId);
+    int homePageUserId = (Integer) (request.getAttribute("homePageUserId"));
+    ArrayList<Category> categories = (ArrayList<Category>) request.getAttribute("categories");
+    boolean isLoggedInUsersPage = (loggedInUserId == homePageUserId);
 %>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><%=user.getUsername() + "'s page"%></title>
+        <title><%=homePageUser.getUsername() + "'s page"%></title>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/UserHomePage.css">
     </head>
     <body>
-        <div class="NavigationBar" id="MyNavigationBar">
-            <h1 style="font-size: 40px"><%=user.getUsername()%></h1>
-            <img src="<%="../icons/" + user.getAvatar() + ".svg"%>" id="Avatar"/>
-            <div class="Buttons">
-                <% if(loggedInUserId == homePageUserId){%>
-                    <button class="AddButtons" id="CategoryButton">Add a Category</button>
-                    <button class="AddButtons" id="BlogButton">Add a Blog</button>
-                    <%if(user.getAdmin()){%>
-                        <a class="Buttons" href="/">Admin's HomePage</a>
-                    <%}
-                }%>
-
+        <div class="navigation-bar" id="navigation-bar">
+            <div class="navbar-buttons">
+                <%if(homePageUser.getAdmin()){%>
+                    <a class="button" href="/AdminHomePage">Admin's HomePage</a>
+                <%}%>
+                <a class="button" href="/logout">Logout</a>
+                <a class="button" href="/UserHomePage?userId=<%=loggedInUserId%>"><%=loggedInUser.getUsername()%></a>
+                <a class="button" href="/"> Home </a>
             </div>
+            <h1 style="font-size: 40px"><%=homePageUser.getUsername()%></h1>
+            <img src="<%="../icons/" + homePageUser.getAvatar() + ".svg"%>" id="Avatar"/>
         </div>
-        <div class="Blogs" id="UsersBlogs">
-            <p style="font-size: 40px">Blogs</p>
+        <div class="blog-info" id="UsersBlogs">
+            <% if(isLoggedInUsersPage){%>
+            <div class="blog-buttons">
+                <button class="add-buttons" id="category-button">Add a Category</button>
+                <button class="add-buttons" id="blog-button">Add a Blog</button>
+            </div>
+            <%}%>
+            <p style="font-size: 40px"><%=homePageUser.getUsername()%>'s blogs</p>
             <%
                 for(Blog blog : blogs){
             %>
-            <p class="DatesAndBlogs">
-                <a class="Blogs" href = /><%=blog.getTitle()%> </a>
-                <%if(loggedInUserId == homePageUserId){%>
-                    <form action="/DeleteBlog?blogTitle=<%=blog.getTitle()%>" method="post">
-                        <input type="submit" name="delete" value="delete" />
-                    </form>
+            <p class="blog-title-and-text">
+                <%if(isLoggedInUsersPage){%>
+                <form class="delete-blog" action="/DeleteBlog?blogTitle=<%=blog.getTitle()%>" method="post">
+                    <input type="submit" name="delete" value="Delete Blog" id="delete-blog-button" onclick="return confirm('Are you sure you want to delete this blog?');"/>
+                </form>
                 <%}%>
+                <a class="blogs" href = /><%=blog.getTitle()%> </a> <br>
+                <small class="created-at-and-category">
+                    <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
+                </small>
+                <%=blog.getTruncatedText()%>
             </p>
-                <%=blog.getCreated_at()%> <br>
-                <%
-                    String result = "";
-                    String str = blog.getText();
-                    int j = 0;
-                    int wordsToShow = 10;
-                    while(j < str.length()){
-                        result = result + str.charAt(j);
-                        if(str.charAt(j) == ' '){
-                            wordsToShow -= 1;
-                        }
-                        if(wordsToShow == 0){
-                            j = str.length();
-                            result += "...";
-                        }
-                        j += 1;
-                    }
-                %>
-                <%=result%>
             <%
                 }
             %>
         </div>
-        <div id="blogModal" class="modal">
+        <div id="blog-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="close">&times;</span>
                     <h2>Add a Blog</h2>
                 </div>
                 <div class="modal-body">
-                    <form method = "post" id="blogContainer">
-                        <div id="titleContainer">
+                    <form method = "post" id="blog-container">
+                        <div id="title-container">
                             <div class="controls">
                                 <input type="text" name="blogTitle" title="title" class="BlogTitle" placeholder="Title" maxlength="16" required="" id="Title">
-                                <button class="AddBlogButton" type="submit">Add</button>
+                                <button class="add-blog-button" type="submit">Add</button>
                             </div>
                         </div>
                         <label for="categories">choose a category:</label>
@@ -99,23 +87,23 @@
                         </select>
                         <br><br>
                     </form>
-                    <textarea required="" name="blogText" cols="40" rows="5" form="blogContainer"></textarea>
+                    <textarea required="" name="blogText" cols="40" rows="5" form="blog-container"></textarea>
                 </div>
             </div>
 
         </div>
-        <div id="categoryModal" class="modal">
+        <div id="category-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="close">&times;</span>
                     <h2>Request to Add a Category</h2>
                 </div>
                 <div class="modal-body">
-                    <form method = "post" id="categoryContainer">
-                        <div id="categoryNameContainer">
+                    <form method = "post" id="category-container">
+                        <div id="category-name-container">
                             <div class="controls">
                                 <input type="text" name="category" title="category" class="CategoryName" placeholder="Enter category" maxlength="16" required="" id="Category">
-                                <button class="AddCategoryButton" type="submit">Add</button>
+                                <button class="add-category-button" type="submit">Add</button>
                             </div>
                         </div>
                     </form>

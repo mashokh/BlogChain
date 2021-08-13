@@ -12,7 +12,7 @@
     int blogId = Integer.parseInt(request.getParameter("blogId"));
     Blog blog = BlogsDao.getBlogById(blogId);
     ArrayList<Comments> comments = CommentsDao.getCommentsByBlogId(blogId);
-    User author = UserDAO.getUserById(Integer.parseInt(blog.getCreated_by()));
+    User author = UserDAO.getUserById(blog.getCreated_by());
     String authorAvatar ="../icons/" + author.getAvatar() + ".svg";
 %>
 <html>

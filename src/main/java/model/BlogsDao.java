@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.PreRemove;
 import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
@@ -122,5 +123,17 @@ public class BlogsDao {
             throwables.printStackTrace();
         }
         return result;
+    }
+
+    public static void deleteBlogsByUser(int userId){
+        Connection connection = DataBase.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("delete from blogs.blogs where created_by = ?");
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 }

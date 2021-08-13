@@ -1,8 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.User" %>
-<%@ page import="model.Blog" %>
-<%@ page import="model.Category" %>
-<%@ page import="model.UserDAO" %><%--
+<%@ page import="model.*" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 05.08.2021
@@ -55,7 +52,7 @@
                     <input type="submit" name="delete" value="Delete Blog" id="delete-blog-button" onclick="return confirm('Are you sure you want to delete this blog?');"/>
                 </form>
                 <%}%>
-                <a class="blogs" href = /><%=blog.getTitle()%> </a> <br>
+                <a class="blogs" href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>"><%=blog.getTitle()%> </a> <br>
                 <small class="created-at-and-category">
                     <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
                 </small>

@@ -1,5 +1,7 @@
 package controller;
 
+import model.SavedBlogsDao;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +17,7 @@ public class SaveBlogServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int blogId = Integer.parseInt(request.getParameter("blogId"));
         int userId = (Integer) request.getSession().getAttribute("user_id");
-        //TODO add blog to saved_blogs table with user_id masho
-        request.getRequestDispatcher("views/viewBlog.jsp").forward(request, response);
+        SavedBlogsDao.saveBlog(userId, blogId);
+        response.sendRedirect("/viewBlog?blogId="+blogId);
     }
 }

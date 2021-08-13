@@ -4,14 +4,24 @@ public class Comments {
     private int comment_id;
     private int blog_id;
     private int user_id;
+    private int likes;
     private String text;
     private String created_at;
 
-    public Comments(int blog_id, int user_id, String text, String created_at) {
+    public Comments(int blog_id, int user_id, String text, String created_at, int likes) {
+        this.likes = likes;
         this.blog_id = blog_id;
         this.user_id = user_id;
         this.text = text;
         this.created_at = created_at;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
     public int getComment_id() {

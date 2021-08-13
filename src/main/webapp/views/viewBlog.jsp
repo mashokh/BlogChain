@@ -26,6 +26,11 @@
 </head>
 <body>
 
+<div class = "navbar-container">
+    <a href = "/logout">Logout</a>
+    <a href = "/">Home</a>
+</div>
+
 <p id = "blog_body">
     <% out.println(blog.getText()); %>
 </p>
@@ -45,11 +50,9 @@
     </i>
 </li>
 
-<div>
-    <form action = "/SaveBlogServlet?blogId=<%out.println(blogId);%>" id = "save_blog" method="post">
-        <input type = "submit" value = "Save This Blog">
-    </form>
-</div>
+<form action = "/SaveBlogServlet?blogId=<%out.println(blogId);%>" id = "save_blog" method="post">
+    <input type = "submit" value = "Save This Blog" id = "submit_save">
+</form>
 
 <div class="separator">Comments</div>
 
@@ -59,7 +62,7 @@
     </div>
     <div>
         <input type="text" name = "commentBody" placeholder="Enter your comment" size = "50" required=""/>
-        <input type = "submit" value = "Add Comment">
+        <input type = "submit" value = "Add Comment" id = "submit_comment">
     </div>
 </form>
 
@@ -85,8 +88,14 @@
                             + currUser.getUsername() + "</a>"); %>
                     <i id = "comment_calendar"></i>
                     <% out.println("On: " + comment.getCreated_at()); %>
+                    <i id = "likesNum"></i>
+                    <% out.println("Likes: " + comment.getLikes()); %>
                 </li>
-                <% if(comment.getUser_id() == loggedInUserId)
+                <form action = "/LikeDislikeServlet?commentId=<%out.println(comment.getComment_id());%>" id = "like_dislike" method="post">
+                    <input type = "submit" name = "like" value="Like">
+                    <input type = "submit" name = "dislike" value="Dislike">
+                </form>
+                <% if(comment.getUser_id() == loggedInUserId || loggedInUserId == blog.getCreated_by())
                         out.println("<form action = \"/DeleteCommentServlet?commentId="+ comment.getComment_id() +"\" " +
                                 "id = \"delete_blog\" method = \"post\">\n" +
                                 "        <input type = \"submit\" value = \"Delete Comment\">\n" +
@@ -99,11 +108,5 @@
 <%
     }
 %>
-
-<div>
-    <form action = "/" id = "link_to_home">
-        <input type = "submit" value = "Back To Home">
-    </form>
-</div>
 </body>
 </html>

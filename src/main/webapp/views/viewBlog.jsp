@@ -12,7 +12,7 @@
     int blogId = Integer.parseInt(request.getParameter("blogId"));
     Blog blog = BlogsDao.getBlogById(blogId);
     ArrayList<Comments> comments = CommentsDao.getCommentsByBlogId(blogId);
-    User author = UserDAO.getUserById(blog.getCreated_by());
+    User author = UserDAO.getUserById(Integer.parseInt(blog.getCreated_by()));
     String authorAvatar ="../icons/" + author.getAvatar() + ".svg";
 %>
 <html>
@@ -71,28 +71,28 @@
 
 <div id = "comment">
     <ul id = "user_comment" class = "vl">
-            <div id = "comment_body">
-                <p>
-                    <% out.println("<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(currUser.getUsername())+ ">"
-                            +"<img id = \"comment_avatar\" src = "+ avatar + ">" + "</a>"); %>
-                    <% out.println(comment.getText()); %>
-                </p>
-            </div>
-            <div id = "comment_info">
-                <li>
-                    <i id = "user_name"></i>
-                    <% out.println("By: "+ "<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(currUser.getUsername())+ ">"
-                            + currUser.getUsername() + "</a>"); %>
-                    <i id = "comment_calendar"></i>
-                    <% out.println("On: " + comment.getCreated_at()); %>
-                </li>
-                <% if(comment.getUser_id() == loggedInUserId)
-                        out.println("<form action = \"/DeleteCommentServlet?commentId="+ comment.getComment_id() +"\" " +
-                                "id = \"delete_blog\" method = \"post\">\n" +
-                                "        <input type = \"submit\" value = \"Delete Comment\">\n" +
-                                "    </form>");
-                %>
-            </div>
+        <div id = "comment_body">
+            <p>
+                <% out.println("<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(currUser.getUsername())+ ">"
+                        +"<img id = \"comment_avatar\" src = "+ avatar + ">" + "</a>"); %>
+                <% out.println(comment.getText()); %>
+            </p>
+        </div>
+        <div id = "comment_info">
+            <li>
+                <i id = "user_name"></i>
+                <% out.println("By: "+ "<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(currUser.getUsername())+ ">"
+                        + currUser.getUsername() + "</a>"); %>
+                <i id = "comment_calendar"></i>
+                <% out.println("On: " + comment.getCreated_at()); %>
+            </li>
+            <% if(comment.getUser_id() == loggedInUserId)
+                out.println("<form action = \"/DeleteCommentServlet?commentId="+ comment.getComment_id() +"\" " +
+                        "id = \"delete_blog\" method = \"post\">\n" +
+                        "        <input type = \"submit\" value = \"Delete Comment\">\n" +
+                        "    </form>");
+            %>
+        </div>
     </ul>
 </div>
 

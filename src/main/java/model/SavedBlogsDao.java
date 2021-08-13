@@ -35,4 +35,28 @@ public class SavedBlogsDao {
         }
         return result;
     }
+
+    public static void deleteSavedBlogsByBlogId(int blogId){
+        Connection connection = DataBase.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("delete from blogs.saved_blogs where blog_id = ?");
+            statement.setInt(1, blogId);
+            statement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    public static void deleteSavedBlogsByUserId(int userId){
+        Connection connection = DataBase.getConnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement("delete from blogs.saved_blogs where user_id = ?");
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

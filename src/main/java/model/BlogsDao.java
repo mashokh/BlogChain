@@ -126,14 +126,13 @@ public class BlogsDao {
     }
 
     public static void deleteBlogsByUser(int userId){
-        Connection connection = DataBase.getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement("delete from blogs.blogs where created_by = ?");
-            statement.setInt(1, userId);
-            statement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        ArrayList<Blog> blogsToDelete = getBlogsByUserId(userId);
+        SavedBlogsDao.deleteSavedBlogsByUserId(userId);
+        for(Blog blog: blogsToDelete) {
+            int blogId = getIdByTitle(blog.getTitle());
+            CommentsDao.deleteCommentsByBlogId(blogId);
+            SavedBlogsDao.deleteSavedBlogsByBlogId(blogId);
+            deleteBlog(blog.getTitle());
         }
-
     }
 }

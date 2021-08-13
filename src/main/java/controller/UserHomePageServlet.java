@@ -24,6 +24,7 @@ public class UserHomePageServlet extends HttpServlet{
         System.out.println(userId);
         HttpSession session = req.getSession();
         int loggedInUserId = -1;
+        System.out.println(BlogsDao.deleteBlogByTitleAndUserId("acc", 2));
         if (session.getAttribute(("user_id")) != null) {
             loggedInUserId = (Integer) session.getAttribute("user_id");
             System.out.println(loggedInUserId);

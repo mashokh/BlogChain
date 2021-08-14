@@ -1,17 +1,15 @@
 package model;
 
 
-import java.util.Date;
-
 public class Blog {
     private String title;
     private String text;
     private int created_by;
     private String created_at;
-    private String category_id;
+    private int category_id;
     private int id;
 
-    public Blog(int id, String title, String text, int created_by, String created_at, String category_id) {
+    public Blog(int id, String title, String text, int created_by, String created_at, int category_id) {
         this.title = title;
         this.text = text;
         this.created_by = created_by;
@@ -60,11 +58,11 @@ public class Blog {
         this.created_at = created_at;
     }
 
-    public String getCategory_id() {
+    public int getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(String category_id) {
+    public void setCategory_id(int category_id) {
         this.category_id = category_id;
     }
 

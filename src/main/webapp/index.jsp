@@ -65,7 +65,7 @@
                         <a href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>">
                             <span class="blog-title"> <%= blog.getTitle() %> </span>
                         </a>
-                        <div class="blog-category right-info"> <%=  CategoryDao.getCategoryNameById(Integer.parseInt(blog.getCategory_id())) %> </div>
+                        <div class="blog-category right-info"> <%=  CategoryDao.getCategoryNameById(blog.getCategory_id()) %> </div>
                     </div>
                     <small class="blog-date-author right-info" id="blog-date-and-author">
                         <span class="blog-created-at"><%= blog.getCreated_at() %></span>
@@ -74,7 +74,6 @@
                         </a>
                         <a class="blog-author-username" href="/UserHomePage/?userId=<%=blog.getCreated_by()%>"><%=  author.getUsername() %> </a>
                     </small>
-
                     <div class="blog-body "> <%= blog.getText() %> </div>
                 </div>
             <% } %>

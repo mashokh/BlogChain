@@ -13,17 +13,17 @@
 </head>
 <body>
 
-<h2>Admin Control Panel</h2>
+<h2 class="title">Admin Control Panel</h2>
 
 <form action="/" method="get">
-    <button type="submit" id="getToUserHomePage">User Homepage</button><br><br>
+    <button class="button" type="submit" id="getToUserHomePage">User Homepage</button><br><br>
 </form>
 
-<button id="openSuggestedCategoriesModal">Review Suggestions</button><br><br>
-<button id="openApprovedCategoriesModal">Approved Categories</button><br><br>
-<button id="openAddCategoryModal">Add Category</button><br><br>
-<button id="openDeleteCategoryModal">Delete Category</button><br><br>
-<button id="openBlogDeletionModal">Delete Blog</button><br><br>
+<button class="button" id="openSuggestedCategoriesModal">Review Suggestions</button><br><br>
+<button class="button" id="openApprovedCategoriesModal">Approved Categories</button><br><br>
+<button class="button" id="openAddCategoryModal">Add Category</button><br><br>
+<button class="button" id="openDeleteCategoryModal">Delete Category</button><br><br>
+<button class="button" id="openBlogDeletionModal">Delete Blog</button><br><br>
 
 <% ArrayList<Category> suggestedCategories = (ArrayList) request.getAttribute("suggestedCategories"); %>
 <% ArrayList<Category> approvedCategories = (ArrayList) request.getAttribute("approvedCategories"); %>
@@ -144,8 +144,7 @@
         </div>
     </div>
 </div>
-
-
+</body>
 
 
 
@@ -248,8 +247,6 @@
         }
     }
 
-
-
 </script>
-</body>
+
 </html>

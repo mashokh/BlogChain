@@ -20,9 +20,9 @@ public class DeleteBlog extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String blogTitle = req.getParameter("blogTitle");
+        int blogId = Integer.parseInt(req.getParameter("blogId"));
         int userId = (Integer) req.getSession().getAttribute("user_id");
-        BlogsDao.deleteBlog(blogTitle);
+        BlogsDao.deleteBlog(blogId);
         resp.sendRedirect("/UserHomePage?userId=" + userId);
     }
 }

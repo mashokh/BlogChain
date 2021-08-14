@@ -16,7 +16,7 @@ public class BlogsDao {
             statement.setString(1, String.valueOf(userId));
             ResultSet resultset = statement.executeQuery();
             while(resultset.next()){
-                result.add(new Blog(resultset.getInt("id"), resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
+                result.add(new Blog(resultset.getInt("id"), resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getInt("category_id")));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -39,7 +39,7 @@ public class BlogsDao {
                     resultset = statement.executeQuery();
                 }
                 while(resultset.next()){
-                    result.add(new Blog(resultset.getInt("id"), resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getString("category_id")));
+                    result.add(new Blog(resultset.getInt("id"), resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getInt("category_id")));
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -65,17 +65,18 @@ public class BlogsDao {
         }
     }
 
-    public static void deleteBlog(String title){
+    public static void deleteBlog(int id){
         Connection connection = DataBase.getConnection();
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement("delete from blogs.blogs where title = ?");
-            statement.setString(1, title);
+            statement = connection.prepareStatement("delete from blogs.blogs where id = ?");
+            statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
+
 
     public static Blog getBlogById(int id){
         Connection connection = DataBase.getConnection();
@@ -86,7 +87,7 @@ public class BlogsDao {
             statement.setInt(1, id);
             ResultSet resultset = statement.executeQuery();
             resultset.next();
-            result = new Blog(resultset.getInt("id"), resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getString("category_id"));
+            result = new Blog(resultset.getInt("id"), resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getInt("category_id"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

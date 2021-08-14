@@ -54,13 +54,13 @@
         %>
         <p class="blog-title-and-text">
                 <%if(isLoggedInUsersPage){%>
-        <form class="delete-blog" action="/DeleteBlog?blogTitle=<%=blog.getTitle()%>" method="post">
+        <form class="delete-blog" action="/DeleteBlog?blogId=<%=blog.getId()%>" method="post">
             <input type="submit" name="delete" value="Delete Blog" id="delete-blog-button" onclick="return confirm('Are you sure you want to delete this blog?');"/>
         </form>
         <%}%>
         <a class="blogs" href ="/viewBlog?blogId=<%=blog.getId()%>"><%=blog.getTitle()%> </a> <br>
         <small class="created-at-and-category">
-            <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
+            <%=blog.getCreated_at()%> / <%=CategoryDao.getCategoryNameById(blog.getCategory_id())%><br>
         </small>
         <%=blog.getTruncatedText()%>
         </p>
@@ -75,7 +75,7 @@
         <p class="blog-title-and-text">
             <a class="blogs" href ="/viewBlog?blogId=<%=blog.getId()%>"><%=blog.getTitle()%> </a> <br>
             <small class="created-at-and-category">
-                <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
+                <%=blog.getCreated_at()%> / <%=CategoryDao.getCategoryNameById(blog.getCategory_id())%><br>
             </small>
             <%=blog.getTruncatedText()%>
         </p>
@@ -90,7 +90,7 @@
     <p class="blog-title-and-text">
         <a class="blogs" href ="/viewBlog?blogId=<%=blog.getId()%>"><%=blog.getTitle()%> </a> <br>
         <small class="created-at-and-category">
-            <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
+            <%=blog.getCreated_at()%> / <%=CategoryDao.getCategoryNameById(blog.getCategory_id())%><br>
         </small>
         <%=blog.getTruncatedText()%>
     </p>

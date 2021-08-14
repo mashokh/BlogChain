@@ -15,7 +15,7 @@ public class UserDAO {
             PreparedStatement statement = connection.prepareStatement("select * from users where id = ?;");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
-            if (rs.next()) return new User(rs.getString("username"), rs.getString("password"),
+            if (rs.next()) return new User(id, rs.getString("username"), rs.getString("password"),
                                         rs.getString("avatar"), rs.getBoolean("is_admin"));
 
         } catch (SQLException throwables) { throwables.printStackTrace(); }
@@ -56,7 +56,7 @@ public class UserDAO {
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getAvatar());
             statement.setBoolean(4, user.getAdmin());
-            statement.execute();
+            statement.executeUpdate();
 
         } catch (SQLException throwables) { throwables.printStackTrace(); }
 
@@ -97,14 +97,20 @@ public class UserDAO {
      * @param isAdmin true if need admins users
      *
      * @return array of admin users or non-admin users */
-    public static ArrayList<User> getUserByAdmin(boolean isAdmin) throws SQLException {
+    public static ArrayList<User> getUserByAdmin(boolean isAdmin) {
         Connection connection = DataBase.getConnection();
 
-        String query = "SELECT * FROM users WHERE is_admin = ?;";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setBoolean(1, isAdmin);
+        try {
 
-        return loadUsers(statement.executeQuery());
+            String query = "SELECT * FROM users WHERE is_admin = ?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setBoolean(1, isAdmin);
+
+            return loadUsers(statement.executeQuery());
+
+        } catch (SQLException throwables) { throwables.printStackTrace();}
+
+        return new ArrayList<>();
     }
 
     private static ArrayList<User> loadUsers(ResultSet rs) {
@@ -112,11 +118,9 @@ public class UserDAO {
 
         try {
             while (rs.next())
-                users.add(new User(rs.getString("username"), rs.getString("password"),
+                users.add(new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"),
                         rs.getString("avatar"), rs.getBoolean("is_admin")));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
         return users;
     }
 
@@ -155,6 +159,28 @@ public class UserDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    private static boolean userExists(int id) {
+        return getUserById(id) != null;
+    }
+
+    public static boolean deleteUser(int id) {
+        if (!userExists(id)) return false;
+
+        Connection connection = DataBase.getConnection();
+        String query = "DELETE FROM users WHERE id=?";
+
+        try {
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
+
+
+        return true;
     }
 
 

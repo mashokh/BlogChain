@@ -18,9 +18,8 @@ import java.util.Date;
 public class CommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user_id") == null) {
-            request.getRequestDispatcher("views/login.jsp").forward(request, response);
-        }
+        if (request.getSession().getAttribute("user_id") == null)
+            response.sendRedirect("/login");
         else
             request.getRequestDispatcher("views/viewBlog.jsp").forward(request, response);
     }
@@ -32,7 +31,7 @@ public class CommentServlet extends HttpServlet {
         String commentBody = request.getParameter("commentBody");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
-        Comments toInsert = new Comments(blogId, userId, commentBody, dateFormat.format(date));
+        Comments toInsert = new Comments(blogId, userId, commentBody, dateFormat.format(date), 0);
         CommentsDao.insertComment(toInsert);
         request.getRequestDispatcher("views/viewBlog.jsp").forward(request, response);
     }

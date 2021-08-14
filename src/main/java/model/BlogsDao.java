@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.PreRemove;
 import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
@@ -122,5 +123,16 @@ public class BlogsDao {
             throwables.printStackTrace();
         }
         return result;
+    }
+
+    public static void deleteBlogsByUser(int userId){
+        ArrayList<Blog> blogsToDelete = getBlogsByUserId(userId);
+        SavedBlogsDao.deleteSavedBlogsByUserId(userId);
+        for(Blog blog: blogsToDelete) {
+            int blogId = getIdByTitle(blog.getTitle());
+            CommentsDao.deleteCommentsByBlogId(blogId);
+            SavedBlogsDao.deleteSavedBlogsByBlogId(blogId);
+            deleteBlog(blog.getTitle());
+        }
     }
 }

@@ -8,7 +8,8 @@ public class User {
     private String avatar;
     private Boolean isAdmin;
 
-    public User(String username, String password, String avatar, Boolean isAdmin) {
+    public User(int id, String username, String password, String avatar, Boolean isAdmin) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.avatar = avatar;
@@ -45,5 +46,13 @@ public class User {
 
     private void setAdmin(Boolean admin) {
         isAdmin = admin;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

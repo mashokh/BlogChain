@@ -58,21 +58,21 @@
         <br>
         <div class="blogs-list">
             <% for (Blog blog : blogs) { %>
-<%--                <% User author = UserDAO.getUserById(blog.getCreated_by()); %>--%>
+                <% User author = UserDAO.getUserById(blog.getCreated_by()); %>
                 <div class="blog-container">
 
                     <div class="blog-title-and-category">
-                        <span class="blog-title"> <%= blog.getTitle() %> </span>
-                        <div class="blog-category right-info"> <%=  blog.getCategory_id() %> </div>
+                        <a href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>">
+                            <span class="blog-title"> <%= blog.getTitle() %> </span>
+                        </a>
+                        <div class="blog-category right-info"> <%=  CategoryDao.getCategoryNameById(Integer.parseInt(blog.getCategory_id())) %> </div>
                     </div>
                     <small class="blog-date-author right-info" id="blog-date-and-author">
                         <span class="blog-created-at"><%= blog.getCreated_at() %></span>
                         <a href="/UserHomePage/?userId=<%=blog.getCreated_by()%>">
-<%--                            <img class="blog-author-avatar" src="icons/<%=author.getAvatar()%>.svg"  alt="avatar">--%>
-                            <img class="blog-author-avatar" src="icons/purple.svg"  alt="avatar">
+                            <img class="blog-author-avatar" src="icons/<%=author.getAvatar()%>.svg"  alt="avatar">
                         </a>
-<%--                        <a class="blog-author-username" href="/UserHomePage/?userId=<%=blog.getCreated_by()%>"><%=  author.getUsername() %> </a>--%>
-                        <a class="blog-author-username" href="/UserHomePage/?userId=<%=blog.getCreated_by()%>"> tmp name </a>
+                        <a class="blog-author-username" href="/UserHomePage/?userId=<%=blog.getCreated_by()%>"><%=  author.getUsername() %> </a>
                     </small>
 
                     <div class="blog-body "> <%= blog.getText() %> </div>

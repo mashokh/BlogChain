@@ -17,51 +17,87 @@
     boolean isLoggedInUsersPage = (loggedInUserId == homePageUserId);
 %>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><%=homePageUser.getUsername() + "'s page"%></title>
-        <link rel="stylesheet" type="text/css" media="screen" href="../css/UserHomePage.css">
-    </head>
-    <body>
-        <div class="navigation-bar" id="navigation-bar">
-            <div class="navbar-buttons">
-                <%if(homePageUser.getAdmin()){%>
-                    <a class="button" href="/AdminHomePage">Admin's HomePage</a>
-                <%}%>
-                <a class="button" href="/logout">Logout</a>
-                <a class="button" href="/UserHomePage?userId=<%=loggedInUserId%>"><%=loggedInUser.getUsername()%></a>
-                <a class="button" href="/"> Home </a>
-            </div>
-            <h1 style="font-size: 40px"><%=homePageUser.getUsername()%></h1>
-            <img src="<%="../icons/" + homePageUser.getAvatar() + ".svg"%>" id="Avatar"/>
-        </div>
-        <div class="blog-info" id="UsersBlogs">
-            <% if(isLoggedInUsersPage){%>
-            <div class="blog-buttons">
-                <button class="add-buttons" id="category-button">Add a Category</button>
-                <button class="add-buttons" id="blog-button">Add a Blog</button>
-            </div>
-            <%}%>
-            <p style="font-size: 40px"><%=homePageUser.getUsername()%>'s blogs</p>
-            <%
-                for(Blog blog : blogs){
-            %>
-            <p class="blog-title-and-text">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%=homePageUser.getUsername() + "'s page"%></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/UserHomePage.css">
+</head>
+<body>
+<div class="navigation-bar" id="navigation-bar">
+    <div class="navbar-buttons">
+        <a class="button" href="/logout">Logout</a>
+        <%if(homePageUser.getAdmin()){%>
+        <a class="button" href="/AdminHomePage">Administration</a>
+        <%}%>
+        <a class="button" href="/UserHomePage?userId=<%=loggedInUserId%>"><%=loggedInUser.getUsername()%></a>
+        <a class="button" href="/"> Home </a>
+    </div>
+    <h1 style="font-size: 40px"><%=homePageUser.getUsername()%></h1>
+    <img src="<%="../icons/" + homePageUser.getAvatar() + ".svg"%>" id="Avatar"/>
+</div>
+<div class="blog-info" id="UsersBlogs">
+    <% if(isLoggedInUsersPage){%>
+    <div class="blog-buttons">
+        <button class="add-buttons" id="category-button">Add a Category</button>
+        <button class="add-buttons" id="blog-button">Add a Blog</button>
+    </div>
+    <%}%>
+    <%if(isLoggedInUsersPage){%>
+    <div class="tab">
+        <button class="tab-links" onclick="openBlogs(event, 'user-blogs')">Your Blogs</button>
+        <button class="tab-links" onclick="openBlogs(event, 'saved-blogs')">Saved Blogs</button>
+    </div>
+    <div id="user-blogs" class="tab-content active" >
+        <%
+            for(Blog blog : blogs){
+        %>
+        <p class="blog-title-and-text">
                 <%if(isLoggedInUsersPage){%>
-                <form class="delete-blog" action="/DeleteBlog?blogTitle=<%=blog.getTitle()%>" method="post">
-                    <input type="submit" name="delete" value="Delete Blog" id="delete-blog-button" onclick="return confirm('Are you sure you want to delete this blog?');"/>
-                </form>
-                <%}%>
-                <a class="blogs" href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>"><%=blog.getTitle()%> </a> <br>
-                <small class="created-at-and-category">
-                    <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
-                </small>
-                <%=blog.getTruncatedText()%>
-            </p>
-            <%
-                }
-            %>
-        </div>
+        <form class="delete-blog" action="/DeleteBlog?blogTitle=<%=blog.getTitle()%>" method="post">
+            <input type="submit" name="delete" value="Delete Blog" id="delete-blog-button" onclick="return confirm('Are you sure you want to delete this blog?');"/>
+        </form>
+        <%}%>
+        <a class="blogs" href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>"><%=blog.getTitle()%> </a> <br>
+        <small class="created-at-and-category">
+            <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
+        </small>
+        <%=blog.getTruncatedText()%>
+        </p>
+        <%
+            }
+        %>
+    </div>
+    <div id="saved-blogs" class="tab-content" style="display: none">
+        <%
+            for(Blog blog : blogs){
+        %>
+        <p class="blog-title-and-text">
+            <a class="blogs" href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>"><%=blog.getTitle()%> </a> <br>
+            <small class="created-at-and-category">
+                <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
+            </small>
+            <%=blog.getTruncatedText()%>
+        </p>
+        <%
+            }
+        %>
+    </div>
+    <%} else {%>
+    <%
+        for(Blog blog : blogs){
+    %>
+    <p class="blog-title-and-text">
+        <a class="blogs" href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>"><%=blog.getTitle()%> </a> <br>
+        <small class="created-at-and-category">
+            <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
+        </small>
+        <%=blog.getTruncatedText()%>
+    </p>
+    <%
+            }
+        }
+    %>
+</div>
         <div id="blog-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">

@@ -62,7 +62,7 @@
                 <div class="blog-container">
 
                     <div class="blog-title-and-category">
-                        <a href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>">
+                        <a href ="/viewBlog?blogId=<%=blog.getId()%>">
                             <span class="blog-title"> <%= blog.getTitle() %> </span>
                         </a>
                         <div class="blog-category right-info"> <%=  CategoryDao.getCategoryNameById(blog.getCategory_id()) %> </div>

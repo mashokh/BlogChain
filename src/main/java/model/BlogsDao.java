@@ -93,4 +93,20 @@ public class BlogsDao {
         }
         return result;
     }
+
+    public static boolean deleteBlogByTitleAndUserId(String title, int userId){
+        boolean result = false;
+        Connection connection = DataBase.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("delete from blogs.blogs where title = ? and created_by = ?");
+            statement.setString(1, title);
+            statement.setInt(2, userId);
+            int updatedRowCount = statement.executeUpdate();
+            if(updatedRowCount > 0)
+                result = true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
 }

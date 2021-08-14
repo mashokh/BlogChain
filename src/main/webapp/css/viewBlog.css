@@ -108,14 +108,14 @@ html {
     margin-top: 20px;
 }
 
-.navbar-container {
+.button-style {
     overflow: hidden;
     background-color: #4e45aa;
     margin-right: 91%;
     border-radius: 7px;
 }
 
-.navbar-container a {
+.button-style a {
     float: right;
     color: #f2f2f2;
     text-align: center;
@@ -124,7 +124,7 @@ html {
     font-size: 17px;
 }
 
-.navbar-container a:hover {
+.button-style a:hover {
     background-color: #ddd;
     color: black;
 }

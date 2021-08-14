@@ -1,7 +1,5 @@
 package controller;
 
-import model.Blog;
-import model.BlogsDao;
 import model.Comments;
 import model.CommentsDao;
 
@@ -20,10 +18,10 @@ public class LikeDislikeServlet extends HttpServlet {
         int userId = (Integer) request.getSession().getAttribute("user_id");
         Comments comment = CommentsDao.getCommentById(commentId);
         int blogId = comment.getBlog_id();
-        if(request.getParameter("like") != null && CommentsDao.userLiked(commentId, userId)) {
-            CommentsDao.likeComment(commentId, userId);
-        } else if (request.getParameter("dislike") != null && CommentsDao.userDisliked(commentId, userId)){
-            CommentsDao.dislikeComment(commentId, userId);
+        if(request.getParameter("like") != null) {
+            CommentsDao.likeCommentLogic(commentId, userId);
+        } else if (request.getParameter("dislike") != null){
+            CommentsDao.dislikeCommentLogic(commentId, userId);
         }
         response.sendRedirect("/viewBlog?blogId="+blogId);
     }

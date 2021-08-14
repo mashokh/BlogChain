@@ -170,6 +170,36 @@ public class CommentsDao {
         return contains;
     }
 
+    public static void removeLike(int comment_id, int user_id) {
+        Connection conn = DataBase.getConnection();
+        PreparedStatement statement;
+        try {
+            statement = conn.prepareStatement("DELETE FROM comment_reactions WHERE comment_id = ? AND user_id = ? AND reaction = ?");
+            statement.setInt(1, comment_id);
+            statement.setInt(2, user_id);
+            statement.setString(3, "LIKE");
+            statement.execute();
+            updateCommentRating(comment_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void removeDislike(int comment_id, int user_id) {
+        Connection conn = DataBase.getConnection();
+        PreparedStatement statement;
+        try {
+            statement = conn.prepareStatement("DELETE FROM comment_reactions WHERE comment_id = ? AND user_id = ? AND reaction = ?");
+            statement.setInt(1, comment_id);
+            statement.setInt(2, user_id);
+            statement.setString(3, "DISLIKE");
+            statement.execute();
+            updateCommentRating(comment_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public static void likeComment(int comment_id, int user_id) {
         Connection conn = DataBase.getConnection();
         PreparedStatement statement;
@@ -178,11 +208,8 @@ public class CommentsDao {
             statement.setInt(1, comment_id);
             statement.setInt(2, user_id);
             statement.setString(3, "LIKE");
-            int numLikes = getCommentRate(comment_id);
-            statement = conn.prepareStatement("UPDATE comments SET num_likes = ? WHERE id = ?");
-            statement.setInt(1, numLikes);
-            statement.setInt(2, comment_id);
             statement.execute();
+            updateCommentRating(comment_id);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -196,6 +223,17 @@ public class CommentsDao {
             statement.setInt(1, comment_id);
             statement.setInt(2, user_id);
             statement.setString(3, "DISLIKE");
+            statement.execute();
+            updateCommentRating(comment_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void updateCommentRating(int comment_id) {
+        Connection conn = DataBase.getConnection();
+        PreparedStatement statement;
+        try {
             int numLikes = getCommentRate(comment_id);
             statement = conn.prepareStatement("UPDATE comments SET num_likes = ? WHERE id = ?");
             statement.setInt(1, numLikes);
@@ -203,6 +241,29 @@ public class CommentsDao {
             statement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+    }
+
+    public static void likeCommentLogic(int comment_id, int user_id) {
+        if(CommentsDao.userDisliked(comment_id, user_id)) {
+            CommentsDao.removeDislike(comment_id,user_id);
+            CommentsDao.likeComment(comment_id, user_id);
+        }
+        else if(!CommentsDao.userLiked(comment_id, user_id)) {
+            CommentsDao.likeComment(comment_id, user_id);
+        } else if(CommentsDao.userLiked(comment_id, user_id)) {
+            CommentsDao.removeLike(comment_id,user_id);
+        }
+    }
+
+    public static void dislikeCommentLogic(int comment_id, int user_id) {
+        if(CommentsDao.userLiked(comment_id, user_id)) {
+            CommentsDao.removeLike(comment_id,user_id);
+            CommentsDao.dislikeComment(comment_id, user_id);
+        } else if(!CommentsDao.userDisliked(comment_id, user_id)) {
+            CommentsDao.dislikeComment(comment_id, user_id);
+        } else if(CommentsDao.userDisliked(comment_id, user_id)) {
+            CommentsDao.removeDislike(comment_id, user_id);
         }
     }
 }

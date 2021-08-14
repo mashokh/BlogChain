@@ -26,7 +26,7 @@
 </head>
 <body>
 
-<div class = "navbar-container">
+<div class = "button-style">
     <a href = "/logout">Logout</a>
     <a href = "/">Home</a>
 </div>
@@ -36,12 +36,12 @@
 </p>
 <li id = "blog_info">
     <i>
-        <% out.println("<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(author.getUsername())+ ">"
+        <% out.println("<a href = UserHomePage/?userId=" + author.getId()+ ">"
                 +"<img src = "+ authorAvatar + ">" + "</a>"); %>
 
     </i>
     <i id = "blog_author">
-        <% out.println("<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(author.getUsername())+ ">"
+        <% out.println("<a href = UserHomePage/?userId=" + author.getId()+ ">"
                 + author.getUsername() + "</a>");%>
     </i>
 
@@ -76,7 +76,7 @@
     <ul id = "user_comment" class = "vl">
             <div id = "comment_body">
                 <p>
-                    <% out.println("<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(currUser.getUsername())+ ">"
+                    <% out.println("<a href = UserHomePage/?userId=" + currUser.getId()+ ">"
                             +"<img id = \"comment_avatar\" src = "+ avatar + ">" + "</a>"); %>
                     <% out.println(comment.getText()); %>
                 </p>
@@ -84,7 +84,7 @@
             <div id = "comment_info">
                 <li>
                     <i id = "user_name"></i>
-                    <% out.println("By: "+ "<a href = UserHomePage/?userId=" + UserDAO.getIdByUsername(currUser.getUsername())+ ">"
+                    <% out.println("By: "+ "<a href = UserHomePage/?userId=" + currUser.getId()+ ">"
                             + currUser.getUsername() + "</a>"); %>
                     <i id = "comment_calendar"></i>
                     <% out.println("On: " + comment.getCreated_at()); %>
@@ -92,13 +92,13 @@
                     <% out.println("Likes: " + comment.getLikes()); %>
                 </li>
                 <form action = "/LikeDislikeServlet?commentId=<%out.println(comment.getComment_id());%>" id = "like_dislike" method="post">
-                    <input type = "submit" name = "like" value="Like">
-                    <input type = "submit" name = "dislike" value="Dislike">
+                    <input type = "submit" name = "like" value="Like" class = "button-style">
+                    <input type = "submit" name = "dislike" value="Dislike" class = "button-style">
                 </form>
                 <% if(comment.getUser_id() == loggedInUserId || loggedInUserId == blog.getCreated_by())
                         out.println("<form action = \"/DeleteCommentServlet?commentId="+ comment.getComment_id() +"\" " +
                                 "id = \"delete_blog\" method = \"post\">\n" +
-                                "        <input type = \"submit\" value = \"Delete Comment\">\n" +
+                                "        <input type = \"submit\" value = \"Delete Comment\" class = \"button-style\">\n" +
                                 "    </form>");
                 %>
             </div>

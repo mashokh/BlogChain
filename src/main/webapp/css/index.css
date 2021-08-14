@@ -14,9 +14,13 @@ html {
 .navbar-container {
     overflow: hidden;
     background-color: #4e45aa;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
 }
 
-.navbar-container a, img {
+.navbar-container .navbar-right {
     float: right;
     color: #f2f2f2;
     text-align: center;
@@ -39,6 +43,7 @@ html {
     height: 100%;
     float: left;
     background-color: #4e45aa;
+    position: fixed;
 }
 
 .blogs-list-container {
@@ -46,13 +51,20 @@ html {
     float: right;
 }
 
-.navbar-category-label {
+.navbar-label {
     float: left;
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px ;
     text-decoration: none;
     font-size: 17px;
+}
+
+.blogs-categories-label {
+    color: #f2f2f2;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 50px;
 }
 
 .sidebar-category {
@@ -102,5 +114,24 @@ html {
 }
 
 .blog-body {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    margin-left: 1%;
+}
+
+.blog-date-author .blog-author-username {
+    color: #dddddd;
+    margin-left: 3px;
+}
+
+.blog-date-author .blog-author-avatar {
+    height: 22px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.blog-date-author a {
+    text-decoration: none;
+}
+
+.blog-created-at {
+    color: #9e9999;
 }

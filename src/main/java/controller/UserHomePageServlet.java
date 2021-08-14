@@ -24,18 +24,17 @@ public class UserHomePageServlet extends HttpServlet{
         int userId = Integer.parseInt(req.getParameter("userId"));
         HttpSession session = req.getSession();
         int loggedInUserId = -1;
-        BlogsDao.deleteBlogsByUser(2);
         if (session.getAttribute(("user_id")) != null) {
             loggedInUserId = (Integer) session.getAttribute("user_id");
             User user = UserDAO.getUserById(userId);
             ArrayList<Blog> blogs = BlogsDao.getBlogsByUserId(userId);
             ArrayList<Category> categories = CategoryDao.getCategories(true);
             ArrayList<Integer> savedBlogsIds = SavedBlogsDao.usersSavedBlogsIds(loggedInUserId);
-//            ArrayList<Blog> savedBlogs = new ArrayList<>();
-//            for(int id:savedBlogsIds){
-//                System.out.println(id);
-//                savedBlogs.add(BlogsDao.getBlogById(id));
-//            }
+            ArrayList<Blog> savedBlogs = new ArrayList<>();
+            for(int id:savedBlogsIds){
+                savedBlogs.add(BlogsDao.getBlogById(id));
+            }
+            req.setAttribute("saved-blogs", savedBlogs);
             req.setAttribute("blogs", blogs);
             req.setAttribute("loggedInUserId", loggedInUserId);
             req.setAttribute("homePageUserId", userId);

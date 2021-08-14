@@ -9,13 +9,23 @@ public class Blog {
     private int created_by;
     private String created_at;
     private String category_id;
+    private int id;
 
-    public Blog(String title, String text, int created_by, String created_at, String category_id) {
+    public Blog(int id, String title, String text, int created_by, String created_at, String category_id) {
         this.title = title;
         this.text = text;
         this.created_by = created_by;
         this.created_at = created_at;
         this.category_id = category_id;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

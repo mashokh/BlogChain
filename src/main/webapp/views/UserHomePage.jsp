@@ -73,18 +73,20 @@
                         <div id="title-container">
                             <div class="controls">
                                 <input type="text" name="blogTitle" title="title" class="BlogTitle" placeholder="Title" maxlength="16" required="" id="Title">
-                                <button class="add-blog-button" type="submit">Add</button>
                             </div>
                         </div>
-                        <label for="categories">choose a category:</label>
-                        <select name="chosen_category" id="categories">
-                            <%for(Category category : categories){%>
-                                <option value=<%=category.getName()%>><%=category.getName()%> </option>
-                            <%}%>
-                        </select>
-                        <br><br>
+                        <div class="blog-category-container">
+                            <label for="categories">Category:</label>
+                            <select name="chosen_category" id="categories">
+                                <%for(Category category : categories){%>
+                                    <option value=<%=category.getName()%>><%=category.getName()%> </option>
+                                <%}%>
+                            </select><br>
+                        </div>
+                        <label for="modal-text">Blog:</label><br>
+                        <textarea id="modal-text" required="" name="blogText" cols="40" rows="5" form="blog-container"></textarea><br>
+                        <button class="add-blog-button" type="submit">Add</button>
                     </form>
-                    <textarea required="" name="blogText" cols="40" rows="5" form="blog-container"></textarea>
                 </div>
             </div>
 
@@ -99,8 +101,16 @@
                     <form method = "post" id="category-container">
                         <div id="category-name-container">
                             <div class="controls">
-                                <input type="text" name="category" title="category" class="CategoryName" placeholder="Enter category" maxlength="16" required="" id="Category">
-                                <button class="add-category-button" type="submit">Add</button>
+                                <div class="select-category-label">
+                                    <label  for="Category">Please enter a category</label>
+                                </div>
+                                <div>
+                                    <input type="text" name="category" title="category" class="CategoryName" placeholder="category" maxlength="16" required="" id="Category"><br>
+                                </div>
+                                <div class="add-category-button">
+                                    <button type="submit">Add</button>
+                                </div>
+
                             </div>
                         </div>
                     </form>

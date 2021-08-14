@@ -53,6 +53,6 @@ public class RegisterServlet extends HttpServlet {
 
         if (!password.equals(passwordRepeat)) return null;
 
-        return new User(username, password, avatar, false);
+        return new User(0, username, password, avatar, false);
     }
 }

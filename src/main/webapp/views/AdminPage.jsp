@@ -210,12 +210,6 @@
         suggestedCategoriesModal.style.display = "none";
     }
 
-    window.onclick = function(event) {
-        if (event.target == suggestedCategoriesModal) {
-            suggestedCategoriesModal.style.display = "none";
-        }
-    }
-
 
     //Modal to Show Approved Categories
     var approvedCategoriesModal = document.getElementById("approvedCategoriesModal");
@@ -230,11 +224,6 @@
         approvedCategoriesModal.style.display = "none";
     }
 
-    window.onclick = function(event) {
-        if (event.target == approvedCategoriesModal) {
-            approvedCategoriesModal.style.display = "none";
-        }
-    }
 
     // Modal for Category Addition
     var addCategoryModal = document.getElementById("addCategoryModal");
@@ -247,12 +236,6 @@
 
     span2.onclick = function() {
         addCategoryModal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == addCategoryModal) {
-            addCategoryModal.style.display = "none";
-        }
     }
 
 
@@ -269,11 +252,6 @@
         deleteCategoryModal.style.display = "none";
     }
 
-    window.onclick = function(event) {
-        if (event.target == deleteCategoryModal) {
-            deleteCategoryModal.style.display = "none";
-        }
-    }
 
     // Modal for Blog Deletion
     var deleteBlogModal = document.getElementById("deleteBlogModal");
@@ -288,12 +266,8 @@
         deleteBlogModal.style.display = "none";
     }
 
-    window.onclick = function(event) {
-        if (event.target == deleteBlogModal) {
-            deleteBlogModal.style.display = "none";
-        }
-    }
 
+    //Modal for User Deletion
     var deleteUserModal = document.getElementById("deleteUserModal");
     var deleteUserButton = document.getElementById("openUserDeletionModal");
     var span5 = document.getElementsByClassName("close")[5];
@@ -306,12 +280,8 @@
         deleteUserModal.style.display = "none";
     }
 
-    window.onclick = function(event) {
-        if (event.target === deleteUserModal) {
-            deleteUserModal.style.display = "none";
-        }
-    }
 
+    //Modal for Displaying Admins
     var adminsModal = document.getElementById("adminsModal");
     var openAdminsButton = document.getElementById("openAdminsModal");
     var span6 = document.getElementsByClassName("close")[6];
@@ -324,11 +294,6 @@
         adminsModal.style.display = "none";
     }
 
-    window.onclick = function(event) {
-        if (event.target === adminsModal) {
-            adminsModal.style.display = "none";
-        }
-    }
 
 </script>
 

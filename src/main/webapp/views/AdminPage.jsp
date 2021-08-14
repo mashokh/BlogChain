@@ -148,7 +148,6 @@
         </div>
     </div>
 </div>
-</body>
 
 <div class="modal fade" id="deleteUserModal" action="">
     <div class="modal-dialog">
@@ -195,6 +194,7 @@
     </div>
 </div>
 
+</body>
 
 <script>
     // Modal for Suggested Categories

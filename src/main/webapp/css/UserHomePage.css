@@ -1,3 +1,7 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 div.navigation-bar{
     background: #4e45aa;
     color: #f1f1f1;
@@ -62,6 +66,24 @@ button.add-buttons{
 
 button.add-blog-button{
     display: inline-block;
+    float: right;
+    font-size: 17px;
+    background-color: #3e2fbb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.add-category-button button{
+    font-size: 17px;
+    margin-top: 10px;
+    background-color: #3e2fbb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
 }
 
 button.add-buttons:hover, button.add-buttons:active{
@@ -110,12 +132,12 @@ form.delete-blog{
     margin: auto;
     padding: 0;
     border: 1px solid #031534;
-    width: 80%;
+    width: 50%;
     box-shadow: 0 4px 8px 0 black,0 6px 20px 0 black;
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
 }
 
 @-webkit-keyframes animatetop {
@@ -148,10 +170,29 @@ form.delete-blog{
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+    padding: 2px 16px;
+    height: 35%;
+}
 
 input.BlogText{
     height:200px;
     width:100vh;
     font-size:11pt;
+}
+
+#modal-text, .blog-category-container, .controls input {
+    margin-bottom: 12px;
+    margin-top: 6px;
+}
+
+#category-name-container .controls {
+    text-align: center;
+}
+
+.select-category-label {
+    font-size: 18px;
+    color: #3e2fbb;
+    margin-bottom: 15px;
+    margin-top: 45px;
 }

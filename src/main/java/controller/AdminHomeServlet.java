@@ -19,11 +19,14 @@ public class AdminHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
-        ArrayList<Category> suggestedCategories = CategoryDao.getCategories(false);
-        ArrayList<Category> approvedCategories = CategoryDao.getCategories(true);
-        httpServletRequest.setAttribute("suggestedCategories", suggestedCategories);
-        httpServletRequest.setAttribute("approvedCategories", approvedCategories);
-        httpServletRequest.getRequestDispatcher("views/AdminPage.jsp").
-                forward(httpServletRequest, httpServletResponse);
+        if (httpServletRequest.getSession().getAttribute("user_id") != null) {
+            ArrayList<Category> suggestedCategories = CategoryDao.getCategories(false);
+            ArrayList<Category> approvedCategories = CategoryDao.getCategories(true);
+            httpServletRequest.setAttribute("suggestedCategories", suggestedCategories);
+            httpServletRequest.setAttribute("approvedCategories", approvedCategories);
+            httpServletRequest.getRequestDispatcher("views/AdminPage.jsp").
+                    forward(httpServletRequest, httpServletResponse);
+        } else
+            httpServletResponse.sendRedirect("login");
     }
 }

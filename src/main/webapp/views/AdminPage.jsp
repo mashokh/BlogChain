@@ -15,10 +15,15 @@
 
 <h2>Admin Control Panel</h2>
 
+<form action="/" method="get">
+    <button type="submit" id="getToUserHomePage">User Homepage</button><br><br>
+</form>
+
 <button id="openSuggestedCategoriesModal">Review Suggestions</button><br><br>
 <button id="openApprovedCategoriesModal">Approved Categories</button><br><br>
 <button id="openAddCategoryModal">Add Category</button><br><br>
 <button id="openDeleteCategoryModal">Delete Category</button><br><br>
+<button id="openBlogDeletionModal">Delete Blog</button><br><br>
 
 <% ArrayList<Category> suggestedCategories = (ArrayList) request.getAttribute("suggestedCategories"); %>
 <% ArrayList<Category> approvedCategories = (ArrayList) request.getAttribute("approvedCategories"); %>
@@ -93,9 +98,9 @@
             </div>
             <div class="modal-body">
                 <form action="/AddCategory" method="post">
-                        <label for="addCategoryName">Category Name:</label>
-                        <input type="text" id="addCategoryName" name="addCategoryName" required> <br><br>
-                        <button type="submit">Add</button>
+                    <label for="addCategoryName">Category Name:</label>
+                    <input type="text" id="addCategoryName" name="addCategoryName" required> <br><br>
+                    <button type="submit">Add</button>
                 </form>
             </div>
         </div>
@@ -113,6 +118,26 @@
                 <form action="/DeleteCategory" method="post">
                     <label for="deleteCategoryName">Category Name:</label>
                     <input type="text" id="deleteCategoryName" name="deleteCategoryName" required> <br><br>
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteBlogModal" action="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete Blog</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/AdminBlogDeletion" method="post">
+                    <label for="blogTitle">Blog Title:</label>
+                    <input type="text" id="blogTitle" name="blogTitle" required> <br><br>
+                    <label for="username">Author Username:</label>
+                    <input type="text" id="username" name="username" required> <br><br>
                     <button type="submit">Delete</button>
                 </form>
             </div>
@@ -204,9 +229,27 @@
         }
     }
 
+    // Modal for Blog Deletion
+    var deleteBlogModal = document.getElementById("deleteBlogModal");
+    var deleteBlogButton = document.getElementById("openBlogDeletionModal");
+    var span4 = document.getElementsByClassName("close")[4];
+
+    deleteBlogButton.onclick = function() {
+        deleteBlogModal.style.display = "block";
+    }
+
+    span4.onclick = function() {
+        deleteBlogModal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == deleteBlogModal) {
+            deleteBlogModal.style.display = "none";
+        }
+    }
+
 
 
 </script>
 </body>
 </html>
-

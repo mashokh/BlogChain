@@ -1,6 +1,25 @@
 /* Author: Giorgi Arabidze. */
 
-body {font-family: Arial, Helvetica, sans-serif;}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to right, #42275a 0%, #734b6d 100%);
+    font-size: 20px;
+}
+
+.title{
+    color: white;
+}
+
+
+.button{
+    background-color: #031534;
+    padding: 14px 28px;
+    font-size: 14px;
+    color:white;
+}
+
 
 .modal {
     display: none;
@@ -45,7 +64,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 .modal-header {
     padding: 2px 16px;
-    background-color: crimson;
+    background-color: #031534;
     color: white;
 }
 
@@ -58,7 +77,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 @keyframes slideIn {
     from {bottom: -300px; opacity: 0}
-    to {centre: 0; opacity: 1}
 }
 
 @-webkit-keyframes fadeIn {

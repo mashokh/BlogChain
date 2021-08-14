@@ -1,6 +1,6 @@
 use blogs;
 
-CREATE TABLE comments (
+CREATE TABLE comment_reactions (
                           id INT PRIMARY KEY AUTO_INCREMENT,
                           comment_id INT,
                           user_id INT,

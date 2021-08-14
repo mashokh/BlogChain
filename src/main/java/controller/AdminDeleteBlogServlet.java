@@ -18,7 +18,7 @@ public class AdminDeleteBlogServlet extends HttpServlet {
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
         String title = httpServletRequest.getParameter("blogTitle");
-        String username = httpServletRequest.getParameter("username");
+        String username = httpServletRequest.getParameter("authorName");
         int id = UserDAO.getIdByUsername(username);
         boolean deletionDone = BlogsDao.deleteBlogByTitleAndUserId(title, id);
         if(deletionDone){

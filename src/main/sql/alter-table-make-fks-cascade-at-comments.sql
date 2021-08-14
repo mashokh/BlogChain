@@ -1,0 +1,20 @@
+USE blogs;
+
+ALTER TABLE comments
+DROP CONSTRAINT FK_user_id;
+
+ALTER TABLE comments
+ADD CONSTRAINT FK_user_id
+FOREIGN KEY (user_id)
+REFERENCES users(id)
+ON DELETE CASCADE;
+
+
+ALTER TABLE comments
+DROP CONSTRAINT FK_blog_id;
+
+ALTER TABLE comments
+ADD CONSTRAINT FK_blog_id
+FOREIGN KEY (blog_id)
+REFERENCES blogs(id)
+ON DELETE CASCADE;

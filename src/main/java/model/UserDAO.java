@@ -163,8 +163,7 @@ public class UserDAO {
 
     public static boolean deleteUser(int id) {
         if (!userExists(id)) return false;
-
-        // todo delete blogs of user
+        BlogsDao.deleteBlogsByUser(id);
 
         Connection connection = DataBase.getConnection();
         String query = "DELETE FROM users WHERE id=?";

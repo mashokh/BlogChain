@@ -8,7 +8,8 @@
 --%>
 
 <%
-    ArrayList<Blog> blogs = (ArrayList<Blog>) request.getAttribute("blogs");
+    ArrayList<Blog> usersBlogs = (ArrayList<Blog>) request.getAttribute("blogs");
+    ArrayList<Blog> savedBlogs = (ArrayList<Blog>) request.getAttribute("saved-blogs");
     User homePageUser = (User) request.getAttribute("user");
     int loggedInUserId = (Integer) (request.getAttribute("loggedInUserId"));
     User loggedInUser = UserDAO.getUserById(loggedInUserId);
@@ -49,7 +50,7 @@
     </div>
     <div id="user-blogs" class="tab-content active" >
         <%
-            for(Blog blog : blogs){
+            for(Blog blog : usersBlogs){
         %>
         <p class="blog-title-and-text">
                 <%if(isLoggedInUsersPage){%>
@@ -57,7 +58,7 @@
             <input type="submit" name="delete" value="Delete Blog" id="delete-blog-button" onclick="return confirm('Are you sure you want to delete this blog?');"/>
         </form>
         <%}%>
-        <a class="blogs" href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>"><%=blog.getTitle()%> </a> <br>
+        <a class="blogs" href ="/viewBlog?blogId=<%=blog.getId()%>"><%=blog.getTitle()%> </a> <br>
         <small class="created-at-and-category">
             <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
         </small>
@@ -69,10 +70,10 @@
     </div>
     <div id="saved-blogs" class="tab-content" style="display: none">
         <%
-            for(Blog blog : blogs){
+            for(Blog blog : savedBlogs){
         %>
         <p class="blog-title-and-text">
-            <a class="blogs" href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>"><%=blog.getTitle()%> </a> <br>
+            <a class="blogs" href ="/viewBlog?blogId=<%=blog.getId()%>"><%=blog.getTitle()%> </a> <br>
             <small class="created-at-and-category">
                 <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
             </small>
@@ -84,10 +85,10 @@
     </div>
     <%} else {%>
     <%
-        for(Blog blog : blogs){
+        for(Blog blog : usersBlogs){
     %>
     <p class="blog-title-and-text">
-        <a class="blogs" href ="/viewBlog?blogId=<%=BlogsDao.getIdByTitle(blog.getTitle())%>"><%=blog.getTitle()%> </a> <br>
+        <a class="blogs" href ="/viewBlog?blogId=<%=blog.getId()%>"><%=blog.getTitle()%> </a> <br>
         <small class="created-at-and-category">
             <%=blog.getCreated_at()%> / <%=blog.getCategory_id()%><br>
         </small>

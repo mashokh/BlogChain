@@ -29,12 +29,12 @@ public class UserHomePageServlet extends HttpServlet{
             User user = UserDAO.getUserById(userId);
             ArrayList<Blog> blogs = BlogsDao.getBlogsByUserId(userId);
             ArrayList<Category> categories = CategoryDao.getCategories(true);
-//            ArrayList<Integer> savedBlogsIds = SavedBlogsDao.usersSavedBlogsIds(loggedInUserId);
-//            ArrayList<Blog> savedBlogs = new ArrayList<>();
-//            for(int id:savedBlogsIds){
-//                System.out.println(id);
-//                savedBlogs.add(BlogsDao.getBlogById(id));
-//            }
+            ArrayList<Integer> savedBlogsIds = SavedBlogsDao.usersSavedBlogsIds(loggedInUserId);
+            ArrayList<Blog> savedBlogs = new ArrayList<>();
+            for(int id:savedBlogsIds){
+                savedBlogs.add(BlogsDao.getBlogById(id));
+            }
+            req.setAttribute("saved-blogs", savedBlogs);
             req.setAttribute("blogs", blogs);
             req.setAttribute("loggedInUserId", loggedInUserId);
             req.setAttribute("homePageUserId", userId);

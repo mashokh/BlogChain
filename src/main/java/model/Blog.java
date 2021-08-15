@@ -70,7 +70,7 @@ public class Blog {
         String result = "";
         String str = this.getText();
         int j = 0;
-        int wordsToShow = 10;
+        int wordsToShow = 30;
         while(j < str.length()){
             result = result + str.charAt(j);
             if(str.charAt(j) == ' '){

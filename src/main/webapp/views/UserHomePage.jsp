@@ -84,6 +84,9 @@
         %>
     </div>
     <%} else {%>
+    <p class="blogs" style="color: #031534; font-size: 30px">
+        <%=homePageUser.getUsername()%>'s Blogs
+    </p>
     <%
         for(Blog blog : usersBlogs){
     %>

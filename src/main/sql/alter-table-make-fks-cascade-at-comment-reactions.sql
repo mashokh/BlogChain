@@ -11,10 +11,10 @@ ALTER TABLE comment_reactions
 
 
 ALTER TABLE comment_reactions
-    DROP CONSTRAINT FK_ur_blog_id;
+    DROP CONSTRAINT FK_ur_comment_id;
 
 ALTER TABLE comment_reactions
-    ADD CONSTRAINT FK_ur_blog_id
+    ADD CONSTRAINT FK_ur_comment_id
     FOREIGN KEY (comment_id)
     REFERENCES comments(id)
     ON DELETE CASCADE;

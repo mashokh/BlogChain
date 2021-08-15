@@ -149,16 +149,13 @@ public class UserDAO {
 
         String query = "UPDATE users SET is_admin = ? WHERE username =?;";
         try {
-
             PreparedStatement statement = connection.prepareStatement(query);
 
             statement.setBoolean(1, isAdmin);
             statement.setString(2, username);
             statement.executeUpdate();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } catch (SQLException throwables) { throwables.printStackTrace(); }
     }
 
     private static boolean userExists(int id) {
@@ -172,17 +169,12 @@ public class UserDAO {
         String query = "DELETE FROM users WHERE id=?";
 
         try {
-
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             statement.executeUpdate();
-
         } catch (SQLException throwables) { throwables.printStackTrace(); }
-
 
         return true;
     }
 
-
 }
-

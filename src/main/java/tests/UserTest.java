@@ -2,6 +2,7 @@ package tests;
 
 import junit.framework.TestCase;
 import model.User;
+import model.UserDAO;
 
 public class UserTest extends TestCase {
 
@@ -21,7 +22,6 @@ public class UserTest extends TestCase {
 
         user.setId(1);
         assertEquals(user.getId(), 1);
-
 
     }
 
@@ -53,13 +53,30 @@ public class UserTest extends TestCase {
     }
 
     public void testUserIsAdmin() {
-        assert(!user.getAdmin());
+        assertFalse(user.getAdmin());
 
         user.setAdmin(true);
-        assert(user.getAdmin());
+        assertTrue(user.getAdmin());
 
         user.setAdmin(false);
-        assert(!user.getAdmin());
+        assertFalse(user.getAdmin());
 
     }
+
+    public void testUserExists() {
+        assertTrue(UserDAO.usernameExists("admin"));
+        assertFalse(UserDAO.usernameExists(""));
+    }
+
+    public void testUserAdmin() {
+        assertTrue(UserDAO.userIsAdmin("admin"));
+        UserDAO.getIdByUsername("admin");
+    }
+
+    public void testLogin() {
+        String password = String.valueOf("admin".hashCode());
+        assertTrue(UserDAO.successLogin("admin", password));
+        assertFalse(UserDAO.successLogin("john", "doe"));
+    }
+
 }

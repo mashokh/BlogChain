@@ -158,7 +158,7 @@ public class UserDAO {
         } catch (SQLException throwables) { throwables.printStackTrace(); }
     }
 
-    private static boolean userExists(int id) {
+    public static boolean userExists(int id) {
         return getUserById(id) != null;
     }
 

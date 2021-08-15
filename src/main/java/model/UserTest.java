@@ -1,4 +1,4 @@
-package tests;
+package model;
 
 import junit.framework.TestCase;
 import model.User;
@@ -30,7 +30,7 @@ public class UserTest extends TestCase {
         user.setUsername("Jane");
         assertEquals(user.getUsername(), "Jane");
         user.setUsername("John");
-        assertEquals(user.getUsername(), "Jane");
+        assertEquals(user.getUsername(), "John");
     }
 
     public void testUserPassword() {
@@ -77,6 +77,11 @@ public class UserTest extends TestCase {
         String password = String.valueOf("admin".hashCode());
         assertTrue(UserDAO.successLogin("admin", password));
         assertFalse(UserDAO.successLogin("john", "doe"));
+    }
+
+    public void testDaoGetters() {
+        if (UserDAO.userExists(1)) UserDAO.getUserById(1);
+        UserDAO.getUserByAdmin(true);
     }
 
 }

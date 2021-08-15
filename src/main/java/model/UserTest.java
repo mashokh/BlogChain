@@ -1,87 +1,95 @@
 package model;
 
-import junit.framework.TestCase;
-import model.User;
-import model.UserDAO;
+import org.junit.*;
 
-public class UserTest extends TestCase {
 
-    private User user;
+public class UserTest {
 
-    @Override
-    protected void setUp() throws Exception {
-        String password = String.valueOf("doe".hashCode());
-        user = new User(1, "John", password, "black", false);
+    private static User user;
+    private static int id;
+
+    @BeforeClass
+    public static void setUp() throws Exception {
+        String password = String.valueOf("password".hashCode());
+        user = new User(1, "JohnDoe", password, "black", false);
+
+        id = UserDAO.addUser(user);
+        user.setId(id);
     }
 
+    @Test
     public void testUserId() {
-        assertEquals(user.getId(), 1);
+        Assert.assertEquals(user.getId(), id);
 
         user.setId(2);
-        assertEquals(user.getId(), 2);
+        Assert.assertEquals(user.getId(), 2);
 
-        user.setId(1);
-        assertEquals(user.getId(), 1);
+        user.setId(id);
+        Assert.assertEquals(user.getId(), id);
 
+        Assert.assertTrue(UserDAO.usernameExists(user.getUsername()));
+        Assert.assertEquals(UserDAO.getIdByUsername(user.getUsername()), user.getId());
     }
-
+    @Test
     public void testUsername() {
-        assertEquals(user.getUsername(), "John");
-        user.setUsername("Jane");
-        assertEquals(user.getUsername(), "Jane");
-        user.setUsername("John");
-        assertEquals(user.getUsername(), "John");
-    }
+        Assert.assertEquals(user.getUsername(), "JohnDoe");
 
+        user.setUsername("JaneDoe");
+        Assert.assertEquals(user.getUsername(), "JaneDoe");
+
+        user.setUsername("JohnDoe");
+        Assert.assertEquals(user.getUsername(), "JohnDoe");
+    }
+    @Test
     public void testUserPassword() {
-        String password = String.valueOf("doe".hashCode());
-        assertEquals(user.getPassword(), password);
+        String password = String.valueOf("password".hashCode());
+        Assert.assertEquals(user.getPassword(), password);
 
-        password = String.valueOf("doe2".hashCode());
+        String other = String.valueOf("other".hashCode());
+        user.setPassword(other);
+        Assert.assertEquals(user.getPassword(), other);
+
         user.setPassword(password);
-        assertEquals(user.getPassword(), password);
-    }
+        Assert.assertEquals(user.getPassword(), user.getPassword());
 
+        Assert.assertTrue(UserDAO.successLogin(user.getUsername(), user.getPassword()));
+        Assert.assertFalse(UserDAO.successLogin(user.getUsername(), other));
+    }
+    @Test
     public void testUserAvatar() {
-        assertEquals(user.getAvatar(), "black");
+        Assert.assertEquals(user.getAvatar(), "black");
 
         user.setAvatar("purple");
-        assertEquals(user.getAvatar(), "purple");
+        Assert.assertEquals(user.getAvatar(), "purple");
 
         user.setAvatar("black");
-        assertEquals(user.getAvatar(), "black");
+        Assert.assertEquals(user.getAvatar(), "black");
     }
-
+    @Test
     public void testUserIsAdmin() {
-        assertFalse(user.getAdmin());
+        Assert.assertFalse(user.getAdmin());
 
         user.setAdmin(true);
-        assertTrue(user.getAdmin());
+        Assert.assertTrue(user.getAdmin());
 
         user.setAdmin(false);
-        assertFalse(user.getAdmin());
+        Assert.assertFalse(user.getAdmin());
 
+        Assert.assertFalse(UserDAO.userIsAdmin(user.getUsername()));
+        UserDAO.updateUserStatus(user.getUsername(), true);
+        Assert.assertTrue(UserDAO.userIsAdmin(user.getUsername()));
+        UserDAO.updateUserStatus(user.getUsername(), false);
+        Assert.assertFalse(UserDAO.userIsAdmin(user.getUsername()));
     }
 
-    public void testUserExists() {
-        assertTrue(UserDAO.usernameExists("admin"));
-        assertFalse(UserDAO.usernameExists(""));
-    }
-
-    public void testUserAdmin() {
-        assertTrue(UserDAO.userIsAdmin("admin"));
-        UserDAO.getIdByUsername("admin");
-    }
-
-    public void testLogin() {
-        String password = String.valueOf("admin".hashCode());
-        assertTrue(UserDAO.successLogin("admin", password));
-        assertFalse(UserDAO.successLogin("john", "doe"));
-    }
-
+    @Test
     public void testDaoGetters() {
         if (UserDAO.userExists(1)) UserDAO.getUserById(1);
         UserDAO.getUserByAdmin(true);
     }
 
+    @AfterClass
+    public static void tearDown() throws Exception {
+        UserDAO.deleteUser(id);
+    }
 }

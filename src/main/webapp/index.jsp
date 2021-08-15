@@ -74,7 +74,7 @@
                         </a>
                         <a class="blog-author-username" href="/UserHomePage/?userId=<%=blog.getCreated_by()%>"><%=  author.getUsername() %> </a>
                     </small>
-                    <div class="blog-body "> <%= blog.getText() %> </div>
+                    <div class="blog-body "> <%= blog.getTruncatedText() %> </div>
                 </div>
             <% } %>
         </div>

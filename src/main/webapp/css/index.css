@@ -135,3 +135,7 @@ html {
 .blog-created-at {
     color: #9e9999;
 }
+
+.blog-title-and-category a {
+    text-decoration: none;
+}

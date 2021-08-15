@@ -28,17 +28,15 @@ public class BlogsDao {
         ArrayList<Blog> result = new ArrayList<>();
         Connection connection = DataBase.getConnection();
         PreparedStatement statement;
-        ResultSet resultset;
             try {
-                if(categoryId != 0) {
-                    statement = connection.prepareStatement("select * from blogs.blogs where category_id = ?");
+                if (categoryId != 0) {
+                    statement = connection.prepareStatement("select * from blogs.blogs where category_id = ? order by created_at desc ");
                     statement.setString(1, String.valueOf(categoryId));
-                    resultset = statement.executeQuery();
-                } else{
-                    statement = connection.prepareStatement("select * from blogs.blogs");
-                    resultset = statement.executeQuery();
+                } else {
+                    statement = connection.prepareStatement("select * from blogs.blogs order by created_at desc ");
                 }
-                while(resultset.next()){
+                ResultSet resultset = statement.executeQuery();
+                while (resultset.next()) {
                     result.add(new Blog(resultset.getInt("id"), resultset.getString("title"), resultset.getString("text"), resultset.getInt("created_by"), resultset.getString("created_at"), resultset.getInt("category_id")));
                 }
             } catch (SQLException throwables) {

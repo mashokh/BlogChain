@@ -44,22 +44,26 @@ public class UserDAO {
 
     }
 
-    public static void addUser(User user) {
+    public static int addUser(User user) {
         Connection connection = DataBase.getConnection();
         String query = "INSERT INTO users (username, password, avatar, is_admin) VALUES(?, ?, ?, ?);";
 
         try {
 
-            PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getAvatar());
             statement.setBoolean(4, user.getAdmin());
             statement.executeUpdate();
+            ResultSet keys = statement.getGeneratedKeys();
+
+            if (keys.next()) return keys.getInt(1);
 
         } catch (SQLException throwables) { throwables.printStackTrace(); }
 
+        return 0;
     }
 
     public static boolean usernameExists(String username) {

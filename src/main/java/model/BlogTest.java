@@ -11,12 +11,19 @@ public class BlogTest extends TestCase {
     LocalDate date = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     String localDate = formatter.format(date);
+    int created_by;
+    int id;
+    int category_id;
+
 
     @Override
     protected void setUp() throws Exception {
-
-        blog = new Blog(1, "cs", "counter strike", 2, localDate, 1);
+        created_by = 2;
+        id = 1;
+        category_id = 1;
+        blog = new Blog(id, "cs", "counter strike", created_by, localDate, category_id);
     }
+
 
     public void testBlogId() {
         assertEquals(blog.getId(), 1);
@@ -71,8 +78,18 @@ public class BlogTest extends TestCase {
 
     public void testTruncatedText(){
         assertEquals(blog.getTruncatedText(), "counter strike");
-        blog.setText("cs cs cs cs cs cs cs cs cs cs cs cs");
-        assertEquals("cs cs cs cs cs cs cs cs cs cs ...", blog.getTruncatedText());
+        blog.setText("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31");
+        assertEquals("1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 ...", blog.getTruncatedText());
         blog.setText("counter strike");
     }
+
+    public void testAddBlog(){
+        BlogsDao.addBlog(blog.getTitle(), blog.getText(), blog.getCreated_by(), blog.getCreated_at(), blog.getCategory_id());
+    }
+
+    public void testGetsInDao(){
+        assertNotNull(BlogsDao.getBlogsByCategoryId(category_id));
+        assertNotNull(BlogsDao.getBlogsByUserId(created_by));
+    }
+
 }

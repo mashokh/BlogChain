@@ -26,7 +26,10 @@
 </head>
 <body>
 
-<div class = "button-style">
+<div class = "navbar-style">
+    <b>
+        <% out.println(blog.getTitle()); %>
+    </b>
     <a href = "/logout">Logout</a>
     <a href = "/">Home</a>
 </div>

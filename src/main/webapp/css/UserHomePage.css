@@ -1,5 +1,6 @@
 html {
     font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to bottom, #87445d 0%, #006a87 100%);
 }
 
 div.navigation-bar{
